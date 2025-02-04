@@ -2,7 +2,7 @@ local mod = RegisterMod("My Mod", 1)
 local damagePotion = Isaac.GetItemIdByName("Damage Potion")
 local damagePotionDamage = 10
 
--- Item: Damage Potion
+-- Item: Damage Potion 
 
 function mod:EvaluateCache(player, cacheFlags)
     if cacheFlags & CacheFlag.CACHE_DAMAGE == CacheFlag.CACHE_DAMAGE then
