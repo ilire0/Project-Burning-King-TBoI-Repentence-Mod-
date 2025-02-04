@@ -1,0 +1,7 @@
+<ItemPools>
+    <Pool Name="treasure">
+        <Item Name="The Button" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Pollen" Weight="3" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Damage Potion" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool> 
+</ItemPools>
