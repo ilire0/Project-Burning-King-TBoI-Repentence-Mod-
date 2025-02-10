@@ -101,7 +101,11 @@ local FIRE_ITEMS = {
     CollectibleType.COLLECTIBLE_HOST_HAT,
     CollectibleType.COLLECTIBLE_SOY_MILK,
     CollectibleType.COLLECTIBLE_PARASITE,
-    CollectibleType.COLLECTIBLE_IPECAC
+    CollectibleType.COLLECTIBLE_IPECAC,
+    CollectibleType.COLLECTIBLE_GHOST_PEPPER,
+    CollectibleType.COLLECTIBLE_BIRDS_EYE,
+    CollectibleType.COLLECTIBLE_URN_OF_SOULS,
+    CollectibleType.COLLECTIBLE_JAR_OF_WISPS
 }
 
 function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
@@ -109,23 +113,35 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
     local fireCount = 0
     local blueFlameCount = 0
 
-    -- Durchsuche alle Entities im Raum
-    for i, entity in pairs(Isaac.GetRoomEntities()) do
+    for _, entity in pairs(Isaac.GetRoomEntities()) do
+        -- Detect and remove all fires
         if entity.Type == EntityType.ENTITY_FIREPLACE then
             fireCount = fireCount + 1
-
-            if entity.Variant == 1 then -- Blaue Flamme
+            if entity.Variant == 1 then -- Blue flame
                 blueFlameCount = blueFlameCount + 1
             end
+            entity:Die()
+        end
 
-            entity:Die() -- Feuer löschen
+        -- Detect and remove Fire Mind flames
+        if entity.Type == EntityType.ENTITY_EFFECT and 
+           (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
+            entity.Variant == EffectVariant.BLUE_FLAME) then
+            fireCount = fireCount + 1
+            entity:Remove()
         end
     end
 
     if fireCount > 0 then
-        -- Wende permanente Stat-Buffs an
         local data = player:GetData()
         data.FlamesPurged = (data.FlamesPurged or 0) + fireCount
+
+        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
+        player:AddCacheFlags(CacheFlag.CACHE_SPEED)
+        player:AddCacheFlags(CacheFlag.CACHE_RANGE)
+        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
+        player:AddCacheFlags(CacheFlag.CACHE_LUCK)
+        player:EvaluateItems()
 
         player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
         player:AddCacheFlags(CacheFlag.CACHE_SPEED)
@@ -138,7 +154,7 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
         if data.FlamesPurged >= 50 then
             player:AddBlackHearts(1)
         end
-     -- Nach 100 Flammen: Ein Devil Room Item erscheint
+     -- Nach 100 Flammen: Ein Fire Item erscheint
      if data.FlamesPurged >= 100 and data.FlamesPurged - fireCount < 100 then
         local pos = room:FindFreePickupSpawnPosition(player.Position, 0, true)
         local chosenItem = FIRE_ITEMS[math.random(#FIRE_ITEMS)]
