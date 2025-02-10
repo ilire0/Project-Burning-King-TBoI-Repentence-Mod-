@@ -80,11 +80,6 @@ local FIRE_ITEMS = {
     CollectibleType.COLLECTIBLE_BRIMSTONE,
     CollectibleType.COLLECTIBLE_SULFUR,
     CollectibleType.COLLECTIBLE_ABADDON,
-    CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID,
-    CollectibleType.COLLECTIBLE_DARK_MATTER,
-    CollectibleType.COLLECTIBLE_DEATHS_TOUCH,
-    CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER,
-    CollectibleType.COLLECTIBLE_GOAT_HEAD,
     CollectibleType.COLLECTIBLE_PYROMANIAC,
     CollectibleType.COLLECTIBLE_HOT_BOMBS,
     CollectibleType.COLLECTIBLE_EXPLOSIVO,
@@ -105,7 +100,9 @@ local FIRE_ITEMS = {
     CollectibleType.COLLECTIBLE_GHOST_PEPPER,
     CollectibleType.COLLECTIBLE_BIRDS_EYE,
     CollectibleType.COLLECTIBLE_URN_OF_SOULS,
-    CollectibleType.COLLECTIBLE_JAR_OF_WISPS
+    CollectibleType.COLLECTIBLE_JAR_OF_WISPS,
+    CollectibleType.COLLECTIBLE_BLACK_CANDLE,
+    CollectibleType.COLLECTIBLE_RED_CANDLE
 }
 
 function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
@@ -134,7 +131,8 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
 
     if fireCount > 0 then
         local data = player:GetData()
-        data.FlamesPurged = (data.FlamesPurged or 0) + fireCount
+        local previousFlamesPurged = data.FlamesPurged or 0
+        data.FlamesPurged = previousFlamesPurged + fireCount
 
         player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
         player:AddCacheFlags(CacheFlag.CACHE_SPEED)
@@ -143,10 +141,13 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
         player:AddCacheFlags(CacheFlag.CACHE_LUCK)
         player:EvaluateItems()
 
-        -- Schwarzes Herz oder Devil Room Bonus
-        if data.FlamesPurged >= 50 then
-            player:AddBlackHearts(1)
+        -- Jedes Vielfache von 50 gibt ein schwarzes Herz
+        for i = previousFlamesPurged + 1, data.FlamesPurged do
+            if i % 50 == 0 then
+                player:AddBlackHearts(2)
+            end
         end
+
      -- Nach 100 Flammen: Ein Fire Item erscheint
      if data.FlamesPurged >= 100 and data.FlamesPurged - fireCount < 100 then
         local pos = room:FindFreePickupSpawnPosition(player.Position, 0, true)
