@@ -70,7 +70,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.PollenNewRoom)
 
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame") -- Hole die Item-ID
 local PERMANENT_STATS = {
-    Damage = 0.4,
+    Damage = 0.1,
     Speed = 0.02,
     Range = 0.25,
     Tears = 0.05,
@@ -143,13 +143,6 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
         player:AddCacheFlags(CacheFlag.CACHE_LUCK)
         player:EvaluateItems()
 
-        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE)
-        player:AddCacheFlags(CacheFlag.CACHE_SPEED)
-        player:AddCacheFlags(CacheFlag.CACHE_RANGE)
-        player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY)
-        player:AddCacheFlags(CacheFlag.CACHE_LUCK)
-        player:EvaluateItems()
-
         -- Schwarzes Herz oder Devil Room Bonus
         if data.FlamesPurged >= 50 then
             player:AddBlackHearts(1)
@@ -184,9 +177,11 @@ function mod:OnEvaluateCache(player, cacheFlag)
             player.MaxFireDelay = math.max(5, player.MaxFireDelay - (PERMANENT_STATS.Tears * data.FlamesPurged))
         end
         if cacheFlag == CacheFlag.CACHE_LUCK then
-            player.Luck = player.Luck + (PERMANENT_STATS.Luck * data.FlamesPurged)
+            player.Luck = math.min(13, player.Luck + (PERMANENT_STATS.Luck * data.FlamesPurged))
         end
     end
 end
+
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
