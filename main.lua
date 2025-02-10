@@ -70,11 +70,11 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.PollenNewRoom)
 
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame") -- Hole die Item-ID
 local PERMANENT_STATS = {
-    Damage = 0.1,
+    Damage = 0.4,
     Speed = 0.02,
     Range = 0.25,
     Tears = 0.05,
-    Luck = 0.5
+    Luck = 0.25
 }
 local FIRE_ITEMS = {
     CollectibleType.COLLECTIBLE_BRIMSTONE,
