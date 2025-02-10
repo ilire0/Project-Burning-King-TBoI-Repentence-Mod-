@@ -74,7 +74,7 @@ local PERMANENT_STATS = {
     Speed = 0.02,
     Range = 0.25,
     Tears = 0.05,
-    Luck = 0.25
+    Luck = 0.1
 }
 local FIRE_ITEMS = {
     CollectibleType.COLLECTIBLE_BRIMSTONE,
