@@ -3,4 +3,5 @@
     <active maxcharges="6" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
     <active maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
     <passive id="0" name="Pollen" gfx="pollen_item.png" description="It hurts when I sneeze." quality="2" cache="damage"/>
+    <active name="Holy Outburst" description="Make a mess!" gfx="holy_outburst.png" tags="offensive" maxcharges="90" chargetype="timed" quality="4"/>
 </items>
