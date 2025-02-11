@@ -177,3 +177,14 @@ end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
 
+
+
+--- King Manasse Custom Item start.
+function mod:OnPlayerInit(player)
+    if player:GetPlayerType() == Isaac.GetPlayerTypeByName("King Manasse", false) then
+        -- Give the custom item
+        player:AddCollectible(Isaac.GetItemIdByName("Purgatory Flame"))
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.OnPlayerInit)

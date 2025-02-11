@@ -1,0 +1,13 @@
+<players root="gfx/characters/costumes/" portraitroot="gfx/ui/stage" nameimageroot="gfx/ui/boss">
+    <player name="King Manasse"
+        skin="character_king_manasse.png"
+        nameimage="playername_manasse.png"
+        hp="4"
+        items="257"
+        skinColor="-1"
+        bombs="1"
+        keys="1"
+        coin="1"
+        
+
+</players>
