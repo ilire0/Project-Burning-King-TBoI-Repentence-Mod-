@@ -177,6 +177,40 @@ end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
 
+-- Item: Optic Bomb
+
+local mod = RegisterMod("My Mod", 1)
+local ITEM_ID = Isaac.GetItemIdByName("Optic Bomb")
+
+-- Callback, wenn das Item aufgenommen wird
+function mod:onUpdate(player)
+    if player:HasCollectible(ITEM_ID) then
+        player:GetEffects():AddCollectibleEffect(CollectibleType.COLLECTIBLE_PYROMANIAC) -- Explosion Immunität
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.onUpdate)
+
+-- Callback für Gegner-Treffer
+function mod:onEnemyHit(entity, amount, flags, source, countdown)
+    local player = Isaac.GetPlayer(0)
+    if player:HasCollectible(ITEM_ID) then
+        entity:SetBurning(true) -- Gegner brennt
+    end
+end
+mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.onEnemyHit, EntityType.ENTITY_ENEMY)
+
+-- Callback für den Tod des Gegners
+function mod:onEnemyDeath(entity)
+    local player = Isaac.GetPlayer(0)
+    if player:HasCollectible(ITEM_ID) and entity:IsBurning() then
+        local damage = player.Damage * 20 -- Explosion Schaden skaliert mit Spieler-Schaden
+        local radius = math.min(100 + (player.Damage * 10), 300) -- Max. Radius 300
+        Game():BombExplosionEffects(entity.Position, damage, BombVariant.BOMB_NORMAL, Color(1, 0.5, 0, 1), player, 1, true, false)
+    end
+end
+mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, mod.onEnemyDeath)
+
+
 -- Gabriel Code / Do not change , because its for testing and nothing else , will delete everything below later on!
 -- ###############################################################################################################################################
 
