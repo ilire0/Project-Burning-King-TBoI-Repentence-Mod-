@@ -1,37 +1,112 @@
--- Register the mod (Only once!)
-local mod = RegisterMod("My Mod", 1)
+-- Item: Purgatory Flame
+local mod = RegisterMod("Purgatory Flame", 1)
+local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
 
--- Constants for stat modifications
 local PERMANENT_STATS = {
-    Damage = 0.5,  -- Adjust as needed
-    Tears = 0.25,  -- Adjust as needed
+    Damage = 0.4,
+    Speed = 0.02,
+    Range = 0.25,
+    Tears = 0.05,
+    Luck = 0.1
 }
 
--- Table to store player data
-mod.Data = {}
+local FIRE_ITEMS = {
+    CollectibleType.COLLECTIBLE_BRIMSTONE,
+    CollectibleType.COLLECTIBLE_SULFUR,
+    CollectibleType.COLLECTIBLE_ABADDON,
+    CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID,
+    CollectibleType.COLLECTIBLE_DARK_MATTER,
+    CollectibleType.COLLECTIBLE_DEATHS_TOUCH,
+    CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER,
+    CollectibleType.COLLECTIBLE_GOAT_HEAD,
+    CollectibleType.COLLECTIBLE_GHOST_PEPPER,
+    CollectibleType.COLLECTIBLE_BIRDS_EYE
+}
 
--- Function to initialize player data
-function mod:OnPlayerInit(player)
-    local playerID = player:GetPlayerType()
-    mod.Data[playerID] = mod.Data[playerID] or { FlamesPurged = 0 }
+function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
+    local room = Game():GetRoom()
+    local fireCount = 0
+    local blueFlameCount = 0
+
+    local entities = Isaac.GetRoomEntities()
+
+    -- Zuerst alle Flammen zählen, bevor sie zerstört werden
+    for _, entity in ipairs(entities) do
+        if entity.Type == EntityType.ENTITY_FIREPLACE then
+            fireCount = fireCount + 1
+            if entity.Variant == 1 then -- Blaue Flamme
+                blueFlameCount = blueFlameCount + 1
+            end
+        elseif entity.Type == EntityType.ENTITY_EFFECT and 
+              (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
+               entity.Variant == EffectVariant.BLUE_FLAME) then
+            fireCount = fireCount + 1
+        end
+    end
+
+    -- Dann alle Flammen entfernen
+    for _, entity in ipairs(entities) do
+        if entity.Type == EntityType.ENTITY_FIREPLACE or 
+           (entity.Type == EntityType.ENTITY_EFFECT and 
+            (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
+             entity.Variant == EffectVariant.BLUE_FLAME)) then
+            entity:Remove()
+        end
+    end
+
+    if fireCount > 0 then
+        local data = player:GetData()
+        data.FlamesPurged = (data.FlamesPurged or 0) + fireCount
+
+        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_SPEED | CacheFlag.CACHE_RANGE | CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_LUCK)
+        player:EvaluateItems()
+
+        -- Schwarzes Herz für jede 50. Flamme
+        local previousFlames = data.FlamesPurged - fireCount
+        local newFlames = data.FlamesPurged
+
+        for i = previousFlames + 1, newFlames do
+            if i % 50 == 0 then
+                player:AddBlackHearts(1)
+            end
+        end
+
+        -- Nach 100 Flammen ein Fire-Item
+        if newFlames >= 100 and previousFlames < 100 then
+            local pos = room:FindFreePickupSpawnPosition(player.Position, 0, true)
+            local chosenItem = FIRE_ITEMS[math.random(#FIRE_ITEMS)]
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, chosenItem, pos, Vector(0, 0), nil)
+        end
+    end
+
+    return true
 end
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.OnPlayerInit)
 
--- Function to handle stat modifications
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.UsePurgatoryFlame, PURGATORY_FLAME)
+
+-- **2. Stat-Boost Berechnung**
 function mod:OnEvaluateCache(player, cacheFlag)
-    local data = mod.Data[player:GetPlayerType()]
-    if not data then return end
-
-    if cacheFlag == CacheFlag.CACHE_DAMAGE then
-        player.Damage = player.Damage + (PERMANENT_STATS.Damage * data.FlamesPurged)
-    end
-    
-    if cacheFlag == CacheFlag.CACHE_FIREDELAY then
-        -- Adjusting Tears correctly
-        local newTears = player.Tears + (PERMANENT_STATS.Tears * data.FlamesPurged)
-        player.Tears = math.max(0.5, newTears) -- Ensures fire rate doesn't go too low
+    local data = player:GetData()
+    if data.FlamesPurged then
+        if cacheFlag == CacheFlag.CACHE_DAMAGE then
+            player.Damage = player.Damage + (PERMANENT_STATS.Damage * data.FlamesPurged)
+        end
+        if cacheFlag == CacheFlag.CACHE_SPEED then
+            player.MoveSpeed = player.MoveSpeed + (PERMANENT_STATS.Speed * data.FlamesPurged)
+        end
+        if cacheFlag == CacheFlag.CACHE_RANGE then
+            player.TearRange = player.TearRange + (PERMANENT_STATS.Range * data.FlamesPurged)
+        end
+        if cacheFlag == CacheFlag.CACHE_FIREDELAY then
+            player.MaxFireDelay = math.max(5, player.MaxFireDelay - (PERMANENT_STATS.Tears * data.FlamesPurged))
+        end
+        if cacheFlag == CacheFlag.CACHE_LUCK then
+            local newLuck = player.Luck + (PERMANENT_STATS.Luck * data.FlamesPurged)
+            player.Luck = math.min(newLuck, 13) -- Luck ist auf 13 gecappt
+        end
     end
 end
+
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
 
 -- Damage Potion Effect
@@ -119,6 +194,22 @@ local gabrielType = Isaac.GetPlayerTypeByName("Gabriel", false)
 local hairCostume = Isaac.GetCostumeIdByPath("gfx/characters/gabriel_hair.anm2")
 local stolesCostume = Isaac.GetCostumeIdByPath("gfx/characters/gabriel_stoles.anm2")
 
+function mod:OnGabrielInit(player)
+    if player:GetPlayerType() == gabrielType then
+        -- Add costumes
+        player:AddNullCostume(hairCostume)
+        player:AddNullCostume(stolesCostume)
+        
+        -- Give "Purgatory Flame" as a starting pocket item
+        player:AddCollectible(PURGATORY_FLAME, 0, false)
+        
+        -- Remove "Purgatory Flame" from the item pool so it can't be found normally
+        Game():GetItemPool():RemoveCollectible(PURGATORY_FLAME)
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.OnGabrielInit)
+
 function mod:GiveCostumesOnInit(player)
     if player:GetPlayerType() ~= gabrielType then return end
     player:AddNullCostume(hairCostume)
@@ -129,20 +220,11 @@ mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.GiveCostumesOnInit)
 function mod:HandleStartingStats(player, flag)
     if player:GetPlayerType() ~= gabrielType then return end
     if flag == CacheFlag.CACHE_DAMAGE then
-        player.Damage = player.Damage - 0.6
+        player.Damage = player.Damage + 0.6
     end
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.HandleStartingStats)
 
-function mod:HandleHolyWaterTrail(player)
-    if player:GetPlayerType() ~= gabrielType then return end
-    if Game():GetFrameCount() % 4 == 0 then
-        local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER_TRAIL, 0, player.Position, Vector.Zero, player):ToEffect()
-        creep.SpriteScale = Vector(0.5, 0.5)
-        creep:Update()
-    end
-end
-mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.HandleHolyWaterTrail)
 
 -- Character: Tainted Gabriel
 local taintedGabrielType = Isaac.GetPlayerTypeByName("Gabriel", true)
