@@ -194,7 +194,7 @@ mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.onUpdate)
 function mod:onEnemyHit(entity, amount, flags, source, countdown)
     local player = Isaac.GetPlayer(0)
     if player:HasCollectible(ITEM_ID) then
-        entity:SetBurning(true) -- Gegner brennt
+        entity:AddBurn(EntityRef(entity), 30, player.Damage * 0.1) -- Gegner brennt
     end
 end
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.onEnemyHit, EntityType.ENTITY_ENEMY)
@@ -202,7 +202,7 @@ mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.onEnemyHit, EntityType.ENTI
 -- Callback für den Tod des Gegners
 function mod:onEnemyDeath(entity)
     local player = Isaac.GetPlayer(0)
-    if player:HasCollectible(ITEM_ID) and entity:IsBurning() then
+    if player:HasCollectible(ITEM_ID) then
         local damage = player.Damage * 20 -- Explosion Schaden skaliert mit Spieler-Schaden
         local radius = math.min(100 + (player.Damage * 10), 300) -- Max. Radius 300
         Game():BombExplosionEffects(entity.Position, damage, BombVariant.BOMB_NORMAL, Color(1, 0.5, 0, 1), player, 1, true, false)
