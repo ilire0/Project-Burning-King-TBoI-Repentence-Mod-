@@ -349,6 +349,7 @@ function mod:OnGabrielInit(player)
         
         -- Give "Purgatory Flame" as a starting pocket item
         player:AddCollectible(PURGATORY_FLAME, 0, false)
+        player:FullCharge()
         
         -- Remove "Purgatory Flame" from the item pool so it can't be found normally
         Game():GetItemPool():RemoveCollectible(PURGATORY_FLAME)
