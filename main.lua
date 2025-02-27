@@ -166,55 +166,55 @@ local rng = RNG()
 
 local LOADED_DIE_ITEM = Isaac.GetItemIdByName("Loaded Die")
 
--- Function to roll the die with Luck influence (Good & Bad)
+-- Function to roll the die with Luck influence
 local function RollLoadedDie(luck)
     local roll = rng:RandomInt(6) + 1  -- Base roll (1-6)
 
     if luck >= 3 then
-        -- Luck 3+: Reduce chance of rolling 1-2
+        -- Luck 5+: Reduce chance of rolling 1-2
         if roll <= 2 and rng:RandomFloat() < (luck / 15) then
             roll = roll + rng:RandomInt(4) + 1  -- Reroll to 3-6
         end
     elseif luck <= -1 then
-        -- Luck -1 or lower: Increase chance of rolling 1-2
-        if roll >= 3 and rng:RandomFloat() < math.abs(luck) / 10 then
-            roll = roll - rng:RandomInt(3) - 1  -- Force lower rolls (1-3)
+        -- Luck -5 or lower: Increase chance of rolling 1-2
+        if roll >= 3 and rng:RandomFloat() < (math.abs(luck) / 15) then
+            roll = roll - rng:RandomInt(2) - 1  -- Reroll to 1-2
         end
     end
 
     if luck >= 7 then
-        -- Luck 7+: Always 3 or higher
+        -- Luck 10+: No negative rerolls (always 3+)
         roll = math.max(roll, 3)
-    elseif luck <= -5 then
-        -- Luck -5 or worse: Always 1-3
-        roll = math.min(roll, 3)
     end
 
     return roll
 end
 
--- Function to apply Loaded Die effect
-function mod:OnItemPickup(player, item)
-    if player:HasCollectible(LOADED_DIE_ITEM) then
-        local luck = player.Luck
-        local roll = RollLoadedDie(luck)
-        local itemPool = game:GetItemPool()
+-- Function to apply Loaded Die effect when picking up a pedestal item
+function mod:OnPedestalPickup(pickup, collider)
+    if collider:ToPlayer() then
+        local player = collider:ToPlayer()
+        
+        if player:HasCollectible(LOADED_DIE_ITEM) and pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+            local luck = player.Luck
+            local roll = RollLoadedDie(luck)
+            local itemPool = game:GetItemPool()
 
-        if roll <= 2 then
-            -- Reroll item into another random one
-            local newItem = itemPool:GetCollectible(item.InitSeed, false)
-            player:RemoveCollectible(item.SubType)
-            player:AddCollectible(newItem)
+            if roll <= 2 then
+                -- Reroll item into another random one (BAD outcome)
+                local newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, false)
+                pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true)
 
-        elseif roll >= 5 then
-            -- Give player an extra item
-            local extraItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, false)
-            player:AddCollectible(extraItem)
+            elseif roll >= 5 then
+                -- Give player an extra item (GOOD outcome)
+                local extraItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, false)
+                player:AddCollectible(extraItem)
+            end
         end
     end
 end
 
-mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.OnItemPickup)
+mod:AddCallback(ModCallbacks.MC_PRE_PICKUP_COLLISION, mod.OnPedestalPickup, PickupVariant.PICKUP_COLLECTIBLE)
 
 -- Optic Bomb Effect
 local opticBomb = Isaac.GetItemIdByName("Optic Bomb")
