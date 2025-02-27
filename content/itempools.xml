@@ -7,11 +7,13 @@
     </Pool> 
     <Pool Name="secret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Optic Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     <Pool Name="curse">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     <Pool Name="ultraSecret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <Item Name="Optic Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
 </ItemPools>
