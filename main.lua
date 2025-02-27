@@ -160,6 +160,62 @@ function mod:PollenNewRoom()
 end
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.PollenNewRoom)
 
+-- Loaded Die Effect
+local game = Game()
+local rng = RNG()
+
+local LOADED_DIE_ITEM = Isaac.GetItemIdByName("Loaded Die")
+
+-- Function to roll the die with Luck influence (Good & Bad)
+local function RollLoadedDie(luck)
+    local roll = rng:RandomInt(6) + 1  -- Base roll (1-6)
+
+    if luck >= 3 then
+        -- Luck 3+: Reduce chance of rolling 1-2
+        if roll <= 2 and rng:RandomFloat() < (luck / 15) then
+            roll = roll + rng:RandomInt(4) + 1  -- Reroll to 3-6
+        end
+    elseif luck <= -1 then
+        -- Luck -1 or lower: Increase chance of rolling 1-2
+        if roll >= 3 and rng:RandomFloat() < math.abs(luck) / 10 then
+            roll = roll - rng:RandomInt(3) - 1  -- Force lower rolls (1-3)
+        end
+    end
+
+    if luck >= 7 then
+        -- Luck 7+: Always 3 or higher
+        roll = math.max(roll, 3)
+    elseif luck <= -5 then
+        -- Luck -5 or worse: Always 1-3
+        roll = math.min(roll, 3)
+    end
+
+    return roll
+end
+
+-- Function to apply Loaded Die effect
+function mod:OnItemPickup(player, item)
+    if player:HasCollectible(LOADED_DIE_ITEM) then
+        local luck = player.Luck
+        local roll = RollLoadedDie(luck)
+        local itemPool = game:GetItemPool()
+
+        if roll <= 2 then
+            -- Reroll item into another random one
+            local newItem = itemPool:GetCollectible(item.InitSeed, false)
+            player:RemoveCollectible(item.SubType)
+            player:AddCollectible(newItem)
+
+        elseif roll >= 5 then
+            -- Give player an extra item
+            local extraItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, false)
+            player:AddCollectible(extraItem)
+        end
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE, mod.OnItemPickup)
+
 -- Optic Bomb Effect
 local opticBomb = Isaac.GetItemIdByName("Optic Bomb")
 function mod:onUpdate(player)
