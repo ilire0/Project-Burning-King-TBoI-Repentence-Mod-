@@ -3,10 +3,10 @@ local mod = RegisterMod("Purgatory Flame", 1)
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
 
 local PERMANENT_STATS = {
-    Damage = 0.4,
+    Damage = 0.1,
     Speed = 0.02,
     Range = 0.25,
-    Tears = 0.05,
+    Tears = 0.1,
     Luck = 0.1
 }
 
