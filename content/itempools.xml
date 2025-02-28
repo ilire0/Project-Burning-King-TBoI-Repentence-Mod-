@@ -4,7 +4,11 @@
         <item Name="Pollen" Weight="3" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Damage Potion" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Chirping Alarm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool> 
+    <Pool Name="shop">
+        <item Name="Chirping Alarm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
     <Pool Name="secret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Optic Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
