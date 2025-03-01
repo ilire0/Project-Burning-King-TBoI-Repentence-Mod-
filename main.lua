@@ -407,15 +407,15 @@ mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, mod.onEnemyDeath)
 -- Pyro Mantle
 local ITEM_ID = Isaac.GetItemIdByName("Pyro Mantle")
 
-local AURA_RADIUS_BASE = 200
+local AURA_RADIUS_BASE = 300
 local AURA_RADIUS_LUCK = 10
-local MAX_RADIUS = 400
+local MAX_RADIUS = 600
 
 local auraEntity = nil
 
 -- Berechnet eine rote Aura, ähnlich dem Holy Mantle-Effekt
 local function getAuraColor()
-    return Color(1, 0, 0, 0.5) -- Rote Farbe mit etwas Transparenz
+    return Color(1, 0, 0, 0.6)
 end
 
 function mod:updateAura()
@@ -424,16 +424,16 @@ function mod:updateAura()
         local luck = player.Luck
         local radius = math.min(AURA_RADIUS_BASE + (luck * AURA_RADIUS_LUCK), MAX_RADIUS)
 
-        -- Falls die Aura noch nicht existiert, erstelle sie einmal
-        if auraEntity == nil or not auraEntity:Exists() then
-            auraEntity = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HALO, 0, player.Position, Vector(0, 0), player)
-            auraEntity.SpriteScale = Vector(radius / 100, radius / 100)
+        -- Falls die Aura nicht existiert, erstelle sie neu
+        if not auraEntity or not auraEntity:Exists() then
+            auraEntity = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.RED_CANDLE_FLAME, 0, player.Position, Vector(0, 0), player)
+            auraEntity:GetSprite().Scale = Vector(radius / 100, radius / 100)
         end
 
-        -- Update Position & Farbe der roten Holy Mantle-Aura
+        -- Aktualisiert Position, Skalierung und Farbe der Aura
         auraEntity.Position = player.Position
-        auraEntity.SpriteScale = Vector(radius / 100, radius / 100)
-        auraEntity.Color = getAuraColor() -- **Rote Holy Mantle-Effekt-Farbe**
+        auraEntity:GetSprite().Scale = Vector(radius / 100, radius / 100)
+        auraEntity.Color = getAuraColor()
     end
 end
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, mod.updateAura)
