@@ -407,7 +407,7 @@ mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, mod.onEnemyDeath)
 -- Pyro Mantle
 local ITEM_ID = Isaac.GetItemIdByName("Pyro Mantle")
 
-local AURA_RADIUS_BASE = 300
+local AURA_RADIUS_BASE = 150
 local AURA_RADIUS_LUCK = 10
 local MAX_RADIUS = 600
 
