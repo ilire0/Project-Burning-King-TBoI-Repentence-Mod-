@@ -440,7 +440,7 @@ function mod:UseBeeBuster(item, rng, player, useFlags, activeSlot, varData)
             (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
              entity.Variant == EffectVariant.BLUE_FLAME)) then
             -- Spawn smoke effect at the flame's position
-            Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.SMOKE_CLOUD, 0, entity.Position, Vector(0, 0), nil)
+            Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, entity.Position, Vector(0, 0), nil)
             -- Play extinguish sound
             sfx:Play(SoundEffect.SOUND_FIREDEATH_HISS, 1.0, 0, false, 1.0)
             entity:Remove()
