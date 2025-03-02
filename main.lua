@@ -29,6 +29,7 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
     local blueFlameCount = 0
 
     local entities = Isaac.GetRoomEntities()
+    local sfx = SFXManager()
 
     -- Zuerst alle Flammen zählen, bevor sie zerstört werden
     for _, entity in ipairs(entities) do
@@ -50,7 +51,9 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
            (entity.Type == EntityType.ENTITY_EFFECT and 
             (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
              entity.Variant == EffectVariant.BLUE_FLAME)) then
-            entity:Remove()
+                Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, entity.Position, Vector(0, 0), nil)
+                sfx:Play(SoundEffect.SOUND_FIREDEATH_HISS, 1.0, 0, false, 1.0)
+                entity:Remove()
         end
     end
 
@@ -284,6 +287,8 @@ local function GetRoomItemPool()
         return ItemPoolType.POOL_LIBRARY
     elseif roomType == RoomType.ROOM_BOSS then
         return ItemPoolType.POOL_BOSS
+    elseif roomType == RoomType.ROOM_PLANETARIUM then
+        return ItemPoolType.POOL_PLANETARIUM
     else
         return ItemPoolType.POOL_TREASURE  -- Default to treasure pool if no specific pool is found
     end
