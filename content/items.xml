@@ -8,4 +8,5 @@
     <passive id="3" name="Loaded Die" gfx="loaded_die.png" description="Unlucky Cheaters never win." quality="3"/>
     <passive id="4" name="Chirping Alarm" gfx="chirping_alarm.png" description="it can wait one more day" quality="2"/>
     <passive id="5" name="Pyro Mantle" gfx="pyro_mantle.png" description="Show your infernal presence" quality="3"/>
+    <active maxcharges="4" name="Bee Buster" chargetype="normal" gfx="bee_buster.png" description="OUCH! Burning Stings!" quality="2" />
 </items>
