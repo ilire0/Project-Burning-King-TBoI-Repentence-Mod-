@@ -20,7 +20,29 @@ local FIRE_ITEMS = {
     CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER,
     CollectibleType.COLLECTIBLE_GOAT_HEAD,
     CollectibleType.COLLECTIBLE_GHOST_PEPPER,
-    CollectibleType.COLLECTIBLE_BIRDS_EYE
+    CollectibleType.COLLECTIBLE_BIRDS_EYE,
+    CollectibleType.COLLECTIBLE_BLACK_CANDLE,
+    CollectibleType.COLLECTIBLE_PYROMANIAC,
+    CollectibleType.COLLECTIBLE_HOT_BOMBS,
+    CollectibleType.COLLECTIBLE_EXPLOSIVO,
+    CollectibleType.COLLECTIBLE_SMELTER,
+    CollectibleType.COLLECTIBLE_SULFURIC_ACID,
+    CollectibleType.COLLECTIBLE_LOST_CONTACT,
+    CollectibleType.COLLECTIBLE_JACOBS_LADDER,
+    CollectibleType.COLLECTIBLE_CRICKETS_BODY,
+    CollectibleType.COLLECTIBLE_BOBS_ROTTEN_HEAD,
+    CollectibleType.COLLECTIBLE_COMPOUND_FRACTURE,
+    CollectibleType.COLLECTIBLE_HAEMOLACRIA,
+    CollectibleType.COLLECTIBLE_EPIC_FETUS,
+    CollectibleType.COLLECTIBLE_DR_FETUS,
+    CollectibleType.COLLECTIBLE_HOST_HAT,
+    CollectibleType.COLLECTIBLE_SOY_MILK,
+    CollectibleType.COLLECTIBLE_PARASITE,
+    CollectibleType.COLLECTIBLE_IPECAC,
+    CollectibleType.COLLECTIBLE_URN_OF_SOULS,
+    CollectibleType.COLLECTIBLE_JAR_OF_WISPS,
+    CollectibleType.COLLECTIBLE_BLACK_CANDLE,
+    CollectibleType.COLLECTIBLE_RED_CANDLE,
 }
 
 function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
@@ -381,6 +403,101 @@ function mod:StartCoroutine(func, ...)
     end
     step(...)
 end
+
+
+-- Smouldering Die
+local SMOLDERING_DICE = Isaac.GetItemIdByName("Smoldering Dice")
+
+function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
+    local room = Game():GetRoom()
+    local entities = Isaac.GetRoomEntities()
+    local itemPool = Game():GetItemPool()
+    local sfx = SFXManager()
+
+    local carBattery = player:HasCollectible(CollectibleType.COLLECTIBLE_CAR_BATTERY)
+    local burnChance = carBattery and 0.2 or 0.3
+    local wellDoneChance = carBattery and 0.01 or 0
+
+    -- Determine the item pool based on the room type
+    local roomType = room:GetType()
+    local poolType = ItemPoolType.POOL_TREASURE  -- Default to treasure pool
+
+    if roomType == RoomType.ROOM_SHOP then
+        poolType = ItemPoolType.POOL_SHOP
+    elseif roomType == RoomType.ROOM_DEVIL then
+        poolType = ItemPoolType.POOL_DEVIL
+    elseif roomType == RoomType.ROOM_ANGEL then
+        poolType = ItemPoolType.POOL_ANGEL
+    elseif roomType == RoomType.ROOM_SECRET then
+        poolType = ItemPoolType.POOL_SECRET
+    elseif roomType == RoomType.ROOM_LIBRARY then
+        poolType = ItemPoolType.POOL_LIBRARY
+    elseif roomType == RoomType.ROOM_BOSS then
+        poolType = ItemPoolType.POOL_BOSS
+    elseif roomType == RoomType.ROOM_CURSE then
+        poolType = ItemPoolType.POOL_CURSE
+    elseif roomType == RoomType.ROOM_PLANETARIUM then
+        poolType = ItemPoolType.POOL_PLANETARIUM
+    else
+        return ItemPoolType.POOL_TREASURE  -- Default to treasure pool if no specific pool is found
+    end
+
+    for _, entity in ipairs(entities) do
+        if entity.Type == EntityType.ENTITY_PICKUP and entity.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+            local smolderPickup = entity:ToPickup()
+            if smolderPickup and smolderPickup.SubType ~= 0 then  -- Check if smolderPickup is not nil and not an empty pedestal
+                local itemConfig = Isaac.GetItemConfig():GetCollectible(smolderPickup.SubType)
+                local quality = itemConfig and itemConfig.Quality or 0
+
+                local roll = rng:RandomFloat()
+
+                if roll < wellDoneChance then
+                    -- Well Done: Reroll into a quality 4 item
+                    local newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
+                    while newItem and Isaac.GetItemConfig():GetCollectible(newItem).Quality < 4 do
+                        newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
+                    end
+                    if newItem then
+                        smolderPickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+                        sfx:Play(SoundEffect.SOUND_THUMBSUP, 1.0, 0, false, 1.0)
+                    end
+                elseif roll < burnChance then
+                    -- Burn: Reroll into a quality 0 item
+                    local newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
+                    while newItem and Isaac.GetItemConfig():GetCollectible(newItem).Quality > 0 do
+                        newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
+                    end
+                    if newItem then
+                        smolderPickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+                        sfx:Play(SoundEffect.SOUND_FIREDEATH_HISS, 1.0, 0, false, 1.0)
+                    end
+                elseif roll < 0.5 then
+                    -- Normal Reroll (similar to D6)
+                    local newItem = itemPool:GetCollectible(poolType, false, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
+                    if newItem then
+                        smolderPickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+                        sfx:Play(SoundEffect.SOUND_DICE_SHARD, 1.0, 0, false, 1.0)
+                    end
+                else
+                    -- Reroll with +1 quality
+                    local targetQuality = math.min(quality + 1, 4)
+                    local newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
+                    while newItem and Isaac.GetItemConfig():GetCollectible(newItem).Quality < targetQuality do
+                        newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
+                    end
+                    if newItem then
+                        smolderPickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+                        sfx:Play(SoundEffect.SOUND_POWERUP1, 1.0, 0, false, 1.0)
+                    end
+                end
+            end
+        end
+    end
+
+    return true
+end
+
+mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.UseSmolderingDice, SMOLDERING_DICE)
 
 -- Optic Bomb Effect
 local opticBomb = Isaac.GetItemIdByName("Optic Bomb")
