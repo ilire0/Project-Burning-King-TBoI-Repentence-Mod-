@@ -407,6 +407,7 @@ end
 
 -- Smouldering Die
 local SMOLDERING_DICE = Isaac.GetItemIdByName("Smoldering Dice")
+local rerolledItems = {}  -- Table to track rerolled items for the current use
 
 function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
     local room = Game():GetRoom()
@@ -445,8 +446,9 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
         if entity.Type == EntityType.ENTITY_PICKUP and entity.Variant == PickupVariant.PICKUP_COLLECTIBLE then
             local smolderPickup = entity:ToPickup()
             if smolderPickup and smolderPickup.SubType ~= 0 then  -- Check if smolderPickup is not nil and not an empty pedestal
-                -- Check if the item has already been rerolled
-                if smolderPickup:GetData().HasBeenRerolled then
+                local pickupId = smolderPickup.InitSeed
+                -- Check if the item has already been rerolled in this use
+                if rerolledItems[pickupId] then
                     goto continue
                 end
 
@@ -492,7 +494,7 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                     -- Reroll with +1 quality
                     local targetQuality = math.min(quality + 1, 4)
                     newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
-                    while newItem and (Isaac.GetItemConfig():GetCollectible(newItem).Quality <= quality or Isaac.GetItemConfig():GetCollectible(newItem).Quality < targetQuality) do
+                    while newItem and Isaac.GetItemConfig():GetCollectible(newItem).Quality ~= targetQuality do
                         newItem = itemPool:GetCollectible(poolType, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
                     end
                     if not newItem then
@@ -507,19 +509,21 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                     sfx:Play(soundEffect, 1.0, 0, false, 1.0)
                     -- Create smoke effect (POOF01) at the pedestal
                     Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, smolderPickup.Position, Vector(0,0), nil)
-                    -- Mark the item as rerolled
-                    smolderPickup:GetData().HasBeenRerolled = true
+                    -- Mark the item as rerolled for this use
+                    rerolledItems[pickupId] = true
                 end
             end
             ::continue::
         end
     end
 
+    -- Clear the rerolled items table after processing
+    rerolledItems = {}
+
     return true
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.UseSmolderingDice, SMOLDERING_DICE)
-
 -- Optic Bomb Effect
 local opticBomb = Isaac.GetItemIdByName("Optic Bomb")
 function mod:onUpdate(player)
