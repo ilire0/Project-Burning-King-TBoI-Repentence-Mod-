@@ -1,10 +1,15 @@
 local mod = RegisterMod("MyMod", 1)
 
--- Smouldering Die
+-- Smoldering Dice
 local SMOLDERING_DICE = Isaac.GetItemIdByName("Smoldering Dice")
 local rerolledItems = {}  -- Table to track rerolled items for the current use
 
 function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
+    -- Ensure the function only runs for the Smoldering Dice
+    if item ~= SMOLDERING_DICE then
+        return false
+    end
+
     local room = Game():GetRoom()
     local entities = Isaac.GetRoomEntities()
     local itemPool = Game():GetItemPool()
