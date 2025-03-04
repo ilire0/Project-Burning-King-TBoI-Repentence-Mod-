@@ -575,7 +575,7 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                         -- Fallback to any item
                         newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
                     end
-                    soundEffect = SoundEffect.SOUND_SATAN_GROW  -- Negative sound effect
+                    soundEffect = SoundEffect.SOUND_ISAAC_HURT_GRUNT  -- Negative sound effect
                 elseif roll < normalRerollChance then
                     -- Normal Reroll (similar to D6)
                     newItem = itemPool:GetCollectible(poolType, false, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
@@ -583,7 +583,7 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                         -- Fallback to any item
                         newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, false, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
                     end
-                    soundEffect = SoundEffect.SOUND_NULL -- Neutral sound effect
+                    soundEffect = SoundEffect.SOUND_POWERUP1 -- Neutral sound effect
                 else
                     -- Reroll with +1 quality
                     local targetQuality = math.min(quality + 1, 4)
@@ -595,7 +595,7 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                         -- Fallback to any item
                         newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
                     end
-                    soundEffect = SoundEffect.SOUND_POWERUP1  -- Positive sound effect
+                    soundEffect = SoundEffect.SOUND_POWERUP2  -- Positive sound effect
                 end
 
                 if newItem and Isaac.GetItemConfig():GetCollectible(newItem) then
