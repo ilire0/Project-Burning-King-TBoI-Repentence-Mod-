@@ -1,14 +1,14 @@
 <items gfxroot="gfx/items/" deathanm2="gfx/death_items.anm2" version="1">
     <passive id="1" name="Damage Potion" gfx="damage_potion_item.png" description="It smells like ashes and anger" quality="4" cache="damage" />
-    <active maxcharges="6" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
-    <active maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
-    <passive id="0" name="Pollen" gfx="pollen_item.png" description="It hurts when I sneeze." quality="2" cache="damage"/>
-    <active name="Holy Outburst" description="Make a mess!" gfx="holy_outburst.png" tags="offensive" maxcharges="90" chargetype="timed" quality="4"/>
-    <passive id="2" name="Optic Bomb" gfx="optic_bomb.png" description="See them one last time" quality="3"/>
-    <passive id="3" name="Loaded Die" gfx="loaded_die.png" description="Unlucky Cheaters never win." quality="3"/>
-    <passive id="4" name="Chirping Alarm" gfx="chirping_alarm.png" description="it can wait one more day" quality="2"/>
-    <passive id="5" name="Pyro Mantle" gfx="pyro_mantle.png" description="Show your infernal presence" quality="3"/>
-    <active maxcharges="4" name="Bee Buster" chargetype="normal" gfx="bee_buster.png" description="OUCH! Burning Stings!" quality="2" />
-    <active maxcharges="6" name="Smouldering Dice" chargetype="normal" gfx="smouldering_dice.png" description="Cook your items!" quality="4" />
-    <active maxcharges="4" name="Paper Shredder" chargetype="normal" gfx="paper_shredder.png" description="Cards B Gone" quality="3" />
+    <active id="2" maxcharges="6" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
+    <active id="3" maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
+    <passive id="4" name="Pollen" gfx="pollen_item.png" description="It hurts when I sneeze." quality="2" cache="damage"/>
+    <active id="5" name="Holy Outburst" description="Make a mess!" gfx="holy_outburst.png" tags="offensive" maxcharges="90" chargetype="timed" quality="4"/>
+    <passive id="6" name="Optic Bomb" gfx="optic_bomb.png" description="See them one last time" quality="3"/>
+    <passive id="7" name="Loaded Die" gfx="loaded_die.png" description="Unlucky Cheaters never win." quality="3"/>
+    <passive id="8" name="Chirping Alarm" gfx="chirping_alarm.png" description="it can wait one more day" quality="2"/>
+    <passive id="9" name="Pyro Mantle" gfx="pyro_mantle.png" description="Show your infernal presence" quality="3"/>
+    <active id="10" maxcharges="4" name="Bee Buster" chargetype="normal" gfx="bee_buster.png" description="OUCH! Burning Stings!" quality="2" />
+    <active  maxcharges="6" name="Smoldering Dice" chargetype="normal" gfx="smouldering_dice.png" description="Cook your items!" quality="4" />
+    <active id="12" maxcharges="4" name="Paper Shredder" chargetype="normal" gfx="paper_shredder.png" description="Cards B Gone" quality="3" />
 </items>

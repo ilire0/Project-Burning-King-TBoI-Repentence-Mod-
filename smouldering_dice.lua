@@ -4,11 +4,8 @@ local mod = RegisterMod("MyMod", 1)
 local SMOLDERING_DICE = Isaac.GetItemIdByName("Smoldering Dice")
 local rerolledItems = {}  -- Table to track rerolled items for the current use
 
+
 function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
-    -- Ensure the function only runs for the Smoldering Dice
-    if item ~= SMOLDERING_DICE then
-        return false
-    end
 
     local room = Game():GetRoom()
     local entities = Isaac.GetRoomEntities()
@@ -89,7 +86,7 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                         -- Fallback to any item
                         newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, false, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
                     end
-                    soundEffect = SoundEffect.SOUND_POWERUP1 -- Neutral sound effect
+                    soundEffect = SoundEffect.SOUND_NULL -- Neutral sound effect
                 else
                     -- Reroll with +1 quality
                     local targetQuality = math.min(quality + 1, 4)
@@ -101,7 +98,7 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                         -- Fallback to any item
                         newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, true, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
                     end
-                    soundEffect = SoundEffect.SOUND_POWERUP2  -- Positive sound effect
+                    soundEffect = SoundEffect.SOUND_POWERUP1  -- Positive sound effect
                 end
 
                 if newItem and Isaac.GetItemConfig():GetCollectible(newItem) then

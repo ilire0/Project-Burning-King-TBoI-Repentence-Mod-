@@ -11,7 +11,7 @@ require("optic_bomb")
 require("paper_shredder")
 require("pollen")
 require("pyro_mantle")
-require("smouldering_die")
+require("smouldering_dice")
 require("the_button")
 
 -- Character: Gabriel
