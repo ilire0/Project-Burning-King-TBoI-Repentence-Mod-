@@ -583,7 +583,7 @@ function mod:UseSmolderingDice(item, rng, player, useFlags, activeSlot, varData)
                         -- Fallback to any item
                         newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, false, smolderPickup.InitSeed, CollectibleType.COLLECTIBLE_NULL)
                     end
-                    soundEffect = SoundEffect.SOUND_DICE_SHARD  -- Neutral sound effect
+                    soundEffect = SoundEffect.SOUND_NULL -- Neutral sound effect
                 else
                     -- Reroll with +1 quality
                     local targetQuality = math.min(quality + 1, 4)
