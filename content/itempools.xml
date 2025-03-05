@@ -8,6 +8,15 @@
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Paper Shredder"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool> 
+    <Pool Name="devil">
+         <item Name="Duality Mirror"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+         <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+    </Pool>
+    <Pool Name="angel">
+        <item Name="Duality Mirror"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
     <Pool Name="shop">
         <item Name="Chirping Alarm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Bee Buster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -22,6 +31,7 @@
     <Pool Name="curse">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     <Pool Name="ultraSecret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />

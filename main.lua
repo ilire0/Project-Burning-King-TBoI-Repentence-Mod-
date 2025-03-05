@@ -13,6 +13,8 @@ require("pollen")
 require("pyro_mantle")
 require("smouldering_dice")
 require("the_button")
+require("duality_mirror")
+require("Pseudotheism")
 
 -- Character: Gabriel
 local gabrielType = Isaac.GetPlayerTypeByName("Gabriel", false)
