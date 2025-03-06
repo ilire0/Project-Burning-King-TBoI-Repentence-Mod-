@@ -45,13 +45,6 @@ function mod:GiveCostumesOnInit(player)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.GiveCostumesOnInit)
 
-function mod:HandleStartingStats(player, flag)
-    if player:GetPlayerType() ~= gabrielType then return end
-    if flag == CacheFlag.CACHE_DAMAGE then
-        player.Damage = player.Damage + 0.6
-    end
-end
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.HandleStartingStats)
 
 -- Character: Tainted Gabriel
 local taintedGabrielType = Isaac.GetPlayerTypeByName("Gabriel", true)
