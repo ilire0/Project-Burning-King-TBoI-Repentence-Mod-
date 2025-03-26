@@ -13,4 +13,5 @@
     <passive id="12" name="Pyro Mantle" gfx="pyro_mantle.png" description="Show your infernal presence" quality="3"/>
     <passive id="13" name="Duality Mirror" gfx="duality_mirror.png" description="Double the Fun. Double the Trouble." quality="2"/>
     <passive id="14" name="Pseudotheism" gfx="pseudotheism.png" description="False Gods give False hope." quality="3"/>
+    <passive id="15" name="Rule of Power" gfx="rule_of_power.png" description="The key to all challenges." quality="3"/>
 </items>

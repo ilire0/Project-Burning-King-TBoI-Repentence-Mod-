@@ -15,6 +15,7 @@ require("smouldering_dice")
 require("the_button")
 require("duality_mirror")
 require("Pseudotheism")
+require("rule_of_power")
 
 -- Character: Gabriel
 local gabrielType = Isaac.GetPlayerTypeByName("Gabriel", false)
