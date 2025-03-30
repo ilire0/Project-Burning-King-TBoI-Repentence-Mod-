@@ -1,28 +1,31 @@
-local mod = RegisterMod("MyMod", 1)
+-- Define the item IDs
 local RuleOfPower = Isaac.GetItemIdByName("Rule of Power")
 local GoldenKey = Isaac.GetItemIdByName("Golden Key")
 local MomsKey = Isaac.GetItemIdByName("Mom's Key")
 local TheCompass = Isaac.GetItemIdByName("The Compass")
 
--- Callback function to handle room entry
-local function OnRoomChange()
+-- Define a mod table
+local myMod = RegisterMod("Rule of Power Mod", 1)
+
+-- Function to unlock and open all doors
+local function UnlockAndOpenAllDoors()
     local player = Isaac.GetPlayer(0)
     
-    -- Check if the player has the Rule of Power item
-    if player:HasCollectible(RuleOfPower) then
+    if player and player:HasCollectible(RuleOfPower) then
         local room = Game():GetRoom()
-        local roomType = room:GetType()
 
-        -- Check if the room is a Challenge Room or Boss Challenge Room
-        if roomType == RoomType.ROOM_CHALLENGE or roomType == RoomType.ROOM_BOSSRUSH then
-            -- Open the doors to the room
-            for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
-                local door = room:GetDoor(i)
-                if door then
-                    door:TryUnlock(player, true) -- Use the player and force unlock
-                end
+        for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
+            local door = room:GetDoor(i)
+            if door then
+                door:TryUnlock(player, true)
+                door:Open()
+                print("Unlocked and opened door at slot: " .. tostring(i))
+            else
+                print("No door at slot: " .. tostring(i))
             end
         end
+    else
+        print("Player does not have Rule of Power")
     end
 end
 
@@ -30,44 +33,45 @@ end
 local function OnChallengeRoomClear()
     local player = Isaac.GetPlayer(0)
     
-    -- Check if the player has the Rule of Power item
-    if player:HasCollectible(RuleOfPower) then
+    if player and player:HasCollectible(RuleOfPower) then
         local room = Game():GetRoom()
         local roomType = room:GetType()
 
-        -- Check if the room is a Challenge Room
         if roomType == RoomType.ROOM_CHALLENGE then
-            -- Base 10% chance to spawn additional rewards
             local rewardChance = 0.1
 
-            -- Synergy with Mom's Key: Increase reward chance
             if player:HasCollectible(MomsKey) then
                 rewardChance = rewardChance + 0.1
             end
 
-            -- Spawn additional rewards based on the calculated chance
             if math.random() < rewardChance then
                 local position = room:FindFreePickupSpawnPosition(player.Position, 0, true)
                 Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, 0, position, Vector(0,0), nil)
+                print("Spawned additional reward")
+            else
+                print("No additional reward spawned")
             end
         end
     end
 end
 
 -- Callback function to handle synergies
-local function EvaluateSynergies(player)
-    -- Synergy with Golden Key: Open all locked doors and chests for free
-    if player:HasCollectible(RuleOfPower) and player:HasCollectible(GoldenKey) then
-        player:AddGoldenKey()
-    end
+local function EvaluateSynergies(_, player)
+    if player and player:HasCollectible(RuleOfPower) then
+        if player:HasCollectible(GoldenKey) then
+            player:AddGoldenKey()
+            print("Golden Key synergy activated")
+        end
 
-    -- Synergy with The Compass: Reveal the map
-    if player:HasCollectible(RuleOfPower) and player:HasCollectible(TheCompass) then
-        player:UseCard(Card.CARD_WORLD, UseFlag.USE_NOANIM)
+        if player:HasCollectible(TheCompass) then
+            player:UseCard(Card.CARD_WORLD, UseFlag.USE_NOANIM)
+            print("Compass synergy activated")
+        end
     end
 end
 
 -- Register the callbacks
-mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, OnRoomChange)
-mod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, OnChallengeRoomClear)
-mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, EvaluateSynergies)
+myMod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UnlockAndOpenAllDoors)
+myMod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, UnlockAndOpenAllDoors)
+myMod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, OnChallengeRoomClear)
+myMod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, EvaluateSynergies)
