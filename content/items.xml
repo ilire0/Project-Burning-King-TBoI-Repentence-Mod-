@@ -15,4 +15,5 @@
     <passive id="14" name="Pseudotheism" gfx="pseudotheism.png" description="False Gods give False hope." quality="3"/>
     <passive id="15" name="Rule of Power" gfx="rule_of_power.png" description="The key to all challenges." quality="3"/>
     <passive id="16" name="Dammy's Dilemma" gfx="dammys_dilemma.png" description="MOM! I WANT THIS TOY SWORD!" quality="3"/>
+    <passive id="17" name="Ash Crown" gfx="ash_crown.png" description="MOM! I WANT THIS TOY SWORD!" quality="3"/>
 </items>
