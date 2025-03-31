@@ -7,8 +7,8 @@ local TheCompass = Isaac.GetItemIdByName("The Compass")
 -- Define a mod table
 local myMod = RegisterMod("Rule of Power Mod", 1)
 
--- Function to unlock and open all doors
-local function UnlockAndOpenAllDoors()
+-- Function to unlock and open specific doors
+local function UnlockAndOpenSpecificDoors()
     local player = Isaac.GetPlayer(0)
     
     if player and player:HasCollectible(RuleOfPower) then
@@ -17,9 +17,14 @@ local function UnlockAndOpenAllDoors()
         for i = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
             local door = room:GetDoor(i)
             if door then
-                door:TryUnlock(player, true)
-                door:Open()
-                print("Unlocked and opened door at slot: " .. tostring(i))
+                local doorType = door.TargetRoomType
+                if doorType == RoomType.ROOM_DEFAULT or doorType == RoomType.ROOM_CHALLENGE then
+                    door:TryUnlock(player, true)
+                    door:Open()
+                    print("Unlocked and opened door at slot: " .. tostring(i))
+                else
+                    print("Door at slot " .. tostring(i) .. " is not a normal or challenge door")
+                end
             else
                 print("No door at slot: " .. tostring(i))
             end
@@ -71,7 +76,7 @@ local function EvaluateSynergies(_, player)
 end
 
 -- Register the callbacks
-myMod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UnlockAndOpenAllDoors)
-myMod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, UnlockAndOpenAllDoors)
+myMod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, UnlockAndOpenSpecificDoors)
+myMod:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, UnlockAndOpenSpecificDoors)
 myMod:AddCallback(ModCallbacks.MC_PRE_SPAWN_CLEAN_AWARD, OnChallengeRoomClear)
 myMod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, EvaluateSynergies)
