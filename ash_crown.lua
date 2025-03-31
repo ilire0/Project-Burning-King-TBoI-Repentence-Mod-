@@ -21,7 +21,7 @@ local function OnGameUpdate()
         -- Increment frame count
         frameCount = frameCount + 1
 
-        -- Spawn creep every 4th frame
+        -- Spawn effect every 4th frame
         if frameCount % 4 == 0 then
             -- Find all tears in the room
             for _, entity in ipairs(Isaac.GetRoomEntities()) do
@@ -29,12 +29,12 @@ local function OnGameUpdate()
                     local tear = entity:ToTear()
                     -- Check if the tear belongs to the player
                     if tear and tear.Position and tear.SpawnerType == EntityType.ENTITY_PLAYER then
-                        local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER_TRAIL, 0, tear.Position, Vector.Zero, player):ToEffect()
-                        if creep then
-                            creep.SpriteScale = Vector(0.5, 0.5) -- Make it smaller
-                            creep:SetColor(Color(0.129, 0.129, 0.129, 1, 0, 0, 0), 0, 0, false,false) -- Set to ash gray
-                            creep:SetTimeout(120) -- Set the creep to last for 120 frames (2 seconds)
-                            creep:Update() -- Update to apply changes immediately
+                        -- Spawn the Black Powder effect
+                        local blackPowderEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACKPOWDER, 0, tear.Position, Vector.Zero, player):ToEffect()
+                        if blackPowderEffect then
+                            blackPowderEffect.SpriteScale = Vector(0.7, 0.7) -- Make it larger
+                            blackPowderEffect:SetTimeout(120) -- Set the effect to last for 120 frames (2 seconds)
+                            blackPowderEffect:Update() -- Update to apply changes immediately
                         end
                     end
                 end
@@ -45,14 +45,14 @@ local function OnGameUpdate()
     -- Handle ash trail effects on enemies
     for _, entity in ipairs(Isaac.GetRoomEntities()) do
         if entity:IsVulnerableEnemy() then
-            -- Check if the enemy is on any creep
-            local creep = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER_TRAIL, -1, false, false)
-            for _, c in ipairs(creep) do
-                if entity.Position:Distance(c.Position) < 40 then
+            -- Check if the enemy is on any black powder effect
+            local blackPowderEffects = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACKPOWDER, -1, false, false)
+            for _, effect in ipairs(blackPowderEffects) do
+                if entity.Position:Distance(effect.Position) < 40 then
                     -- Apply slowing effect for 180 frames (3 seconds)
-                    entity:AddSlowing(EntityRef(c), 180, 0.5, Color(0.5, 0.5, 0.5, 1, 0, 0, 0))
+                    entity:AddSlowing(EntityRef(effect), 180, 0.5, Color(0.5, 0.5, 0.5, 1, 0, 0, 0))
                     -- Apply burning effect for 180 frames (3 seconds)
-                    entity:AddBurn(EntityRef(c), 180, 1.0) -- Burn for 180 frames with 1.0 damage per tick
+                    entity:AddBurn(EntityRef(effect), 180, 1.0) -- Burn for 180 frames with 1.0 damage per tick
                     -- Add enemy to affected list if not already present
                     if not affectedEnemies[entity.InitSeed] then
                         table.insert(affectedEnemies, entity)
@@ -63,12 +63,12 @@ local function OnGameUpdate()
         end
     end
 
-    -- Check for enemies that die in the creep
+    -- Check for enemies that die in the effect
     for i = #affectedEnemies, 1, -1 do
         local enemy = affectedEnemies[i]
         if not enemy:Exists() or enemy:IsDead() then
-            -- Create an explosion at the enemy's position
-            Game():BombExplosionEffects(enemy.Position, 40, TearFlags.TEAR_NORMAL, Color.Default, player, 1.0, true, false)
+            -- Create a smaller explosion at the enemy's position
+            Game():BombExplosionEffects(enemy.Position, 20, TearFlags.TEAR_NORMAL, Color.Default, player, 0.5, true, false)
             table.remove(affectedEnemies, i)
         end
     end
