@@ -18,6 +18,7 @@ require("Pseudotheism")
 require("rule_of_power")
 require("dammys_dilemma")
 require("ash_crown")
+require("allfather_worm")
 
 -- Character: Gabriel
 local gabrielType = Isaac.GetPlayerTypeByName("Gabriel", false)
