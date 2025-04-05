@@ -37,6 +37,7 @@
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Dammy's Dilemma"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Volcanic Sigil"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     <Pool Name="curse">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -50,6 +51,8 @@
         <Item Name="Optic Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Volcanic Sigil"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
     </Pool>
     <Pool Name="goldenChest">
         <item Name="Chirping Alarm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
