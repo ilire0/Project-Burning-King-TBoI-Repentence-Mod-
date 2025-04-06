@@ -1,4 +1,5 @@
 <items gfxroot="gfx/items/" deathanm2="gfx/death_items.anm2" version="1">
+    <active id="21" maxcharges="0" name="Covenant of Ashes" chargetype="normal" gfx="covenant_of_ashes.png" description="A dark pact has been taken..." quality="2" />
     <active id="1" maxcharges="6" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
     <active id="2" maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
     <active id="3" maxcharges="6" name="Smoldering Dice" chargetype="normal" gfx="smouldering_dice.png" description="Cook your items!" quality="4" />

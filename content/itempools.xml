@@ -17,6 +17,7 @@
          <item Name="Duality Mirror"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
          <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
          <item Name="Ash Crown"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+         <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     </Pool>
     <Pool Name="angel">
@@ -45,6 +46,7 @@
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Ash Crown"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     <Pool Name="ultraSecret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -52,6 +54,7 @@
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Volcanic Sigil"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     </Pool>
     <Pool Name="goldenChest">

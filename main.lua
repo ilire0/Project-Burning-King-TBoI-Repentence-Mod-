@@ -21,6 +21,7 @@ require("ash_crown")
 require("allfather_worm")
 require("battery_booster")
 require("volcanic_sigil")
+require("covenant_of_ashes")
 
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
 
