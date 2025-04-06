@@ -18,14 +18,14 @@ local function UseCovenantOfAshes(_, _, player)
             -- Apply permanent damage and range boost
             player.Damage = player.Damage + (redHearts * damageBoost)
             player.TearRange = player.TearRange + (redHearts * rangeBoost)
-
-            -- Play the flame extinguish sound
-            local sfx = SFXManager()
-            sfx:Play(SoundEffect.SOUND_FLAME_BURST ,1.0, 0, false, 1.0)
-
-            -- Remove the item after use
-            player:RemoveCollectible(CovenantOfAshes)
         end
+
+        -- Play the flame extinguish sound
+        local sfx = SFXManager()
+        sfx:Play(SoundEffect.SOUND_FLAME_BURST, 1.0, 0, false, 1.0)
+
+        -- Remove the item after use
+        player:RemoveCollectible(CovenantOfAshes)
     end
 
     return true
