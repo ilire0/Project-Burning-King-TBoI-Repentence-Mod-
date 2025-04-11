@@ -12,6 +12,7 @@
     </Pool> 
     <Pool Name="boss">
         <item Name="Allfather Worm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Hollow Echo" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool> 
     <Pool Name="devil">
          <item Name="Duality Mirror"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
