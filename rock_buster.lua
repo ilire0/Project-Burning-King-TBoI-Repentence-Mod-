@@ -3,12 +3,11 @@ local CollectibleType = {
     BONE_SHAKER = Isaac.GetItemIdByName("Rock Buster")
 }
 
--- Effekt bei Nutzung des Items
 function BoneShaker:UseItem(_, rng, player, useFlags, activeSlot, varData)
     local game = Game()
     local room = game:GetRoom()
 
-    -- Alle Rock-Typen explodieren lassen, inklusive Skull Rocks
+    -- Alle Rock-Typen explodieren lassen
     for i = 0, room:GetGridSize() - 1 do
         local grid = room:GetGridEntity(i)
         if grid then
@@ -20,19 +19,33 @@ function BoneShaker:UseItem(_, rng, player, useFlags, activeSlot, varData)
         end
     end
 
-    -- Existierende Türen auf Secret Rooms prüfen und öffnen
+    local secretDoorFound = false
     local secretDoorOpened = false
+
     for doorSlot = 0, DoorSlot.NUM_DOOR_SLOTS - 1 do
         local door = room:GetDoor(doorSlot)
-        if door and (door.TargetRoomType == RoomType.ROOM_SECRET or door.TargetRoomType == RoomType.ROOM_SUPERSECRET) then
-            if not door:IsOpen() then
-                door:Open()
-                secretDoorOpened = true
+        if door then
+            if (door.TargetRoomType == RoomType.ROOM_SECRET or door.TargetRoomType == RoomType.ROOM_SUPERSECRET) then
+                secretDoorFound = true
+
+                if not door:IsOpen() then
+                    
+                    -- Position der Tür herausfinden
+                    local doorPos = door.Position
+                    local gridIndex = room:GetGridIndex(doorPos)
+
+                    -- Das Grid an der Tür holen
+                    local gridEntity = room:GetGridEntity(gridIndex)
+
+                    if gridEntity then
+                        gridEntity:Destroy(true)
+                        secretDoorOpened = true
+                    end
+                end
             end
         end
     end
 
-    -- Soundeffekt abspielen, wenn mindestens eine Secret Room Tür geöffnet wurde
     if secretDoorOpened then
         game:ShakeScreen(10)
         SFXManager():Play(SoundEffect.SOUND_DOOR_HEAVY_OPEN, 1.0, 0, false, 1.0)
