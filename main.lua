@@ -24,6 +24,7 @@ require("volcanic_sigil")
 require("covenant_of_ashes")
 require("hollow_echo")
 require("rock_buster")
+require("heartburn")
 
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
 

@@ -20,6 +20,7 @@
          <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
          <item Name="Ash Crown"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
          <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+         <item Name="Heartburn" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     </Pool>
     <Pool Name="angel">
@@ -49,6 +50,7 @@
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Ash Crown"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
     </Pool>
     <Pool Name="ultraSecret">
