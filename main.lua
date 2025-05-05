@@ -9,6 +9,7 @@ require("bee_buster")
 require("bewitching_howl")
 require("chirping_alarm")
 require("covenant_of_ashes")
+require("crickets_bed")
 require("damage_potion")
 require("dammys_dilemma")
 require("duality_mirror")
@@ -26,6 +27,7 @@ require("rule_of_power")
 require("smouldering_dice")
 require("the_button")
 require("volcanic_sigil")
+
 
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
 

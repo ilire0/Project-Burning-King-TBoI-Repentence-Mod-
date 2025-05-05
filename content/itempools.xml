@@ -11,6 +11,7 @@
         <item Name="Battery Booster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Rock Buster" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
         <item Name="Bewitching Howl" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Cricket's Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool> 
     <Pool Name="boss">
         <item Name="Allfather Worm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -45,6 +46,7 @@
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Dammy's Dilemma"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Volcanic Sigil"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Cricket's Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
     <Pool Name="curse">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -54,6 +56,7 @@
         <item Name="Ash Crown"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Cricket's Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
     <Pool Name="ultraSecret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
