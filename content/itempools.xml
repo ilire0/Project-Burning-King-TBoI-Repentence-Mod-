@@ -10,6 +10,7 @@
         <item Name="Rule of Power" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Battery Booster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Rock Buster" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Bewitching Howl" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool> 
     <Pool Name="boss">
         <item Name="Allfather Worm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
@@ -35,6 +36,7 @@
         <item Name="Rule of Power" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Battery Booster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Rock Buster" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Bewitching Howl" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
     <Pool Name="secret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
