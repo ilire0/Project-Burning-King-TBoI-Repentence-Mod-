@@ -9,3 +9,5 @@ function mod:EvaluateCache(player, cacheFlags)
     end
 end
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.EvaluateCache)
+
+--- Make it so that the item gives you either full hearts damage afterwards or make it so that it halves all future damage stats up.

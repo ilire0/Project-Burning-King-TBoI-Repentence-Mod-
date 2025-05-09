@@ -1,14 +1,32 @@
 <items gfxroot="gfx/items/" deathanm2="gfx/death_items.anm2" version="1">
-    <passive id="1" name="Damage Potion" gfx="damage_potion_item.png" description="It smells like ashes and anger" quality="4" cache="damage" />
-    <active maxcharges="6" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
-    <active maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
-    <passive id="0" name="Pollen" gfx="pollen_item.png" description="It hurts when I sneeze." quality="2" cache="damage"/>
-    <active name="Holy Outburst" description="Make a mess!" gfx="holy_outburst.png" tags="offensive" maxcharges="90" chargetype="timed" quality="4"/>
-    <passive id="2" name="Optic Bomb" gfx="optic_bomb.png" description="See them one last time" quality="3"/>
-    <passive id="3" name="Loaded Die" gfx="loaded_die.png" description="Unlucky Cheaters never win." quality="3"/>
-    <passive id="4" name="Chirping Alarm" gfx="chirping_alarm.png" description="it can wait one more day" quality="2"/>
-    <passive id="5" name="Pyro Mantle" gfx="pyro_mantle.png" description="Show your infernal presence" quality="3"/>
-    <active maxcharges="4" name="Bee Buster" chargetype="normal" gfx="bee_buster.png" description="OUCH! Burning Stings!" quality="2" />
-    <active maxcharges="6" name="Smouldering Dice" chargetype="normal" gfx="smouldering_dice.png" description="Cook your items!" quality="4" />
-    <active maxcharges="4" name="Paper Shredder" chargetype="normal" gfx="paper_shredder.png" description="Cards B Gone" quality="3" />
+    <active id="21" maxcharges="0" name="Covenant of Ashes" chargetype="normal" gfx="covenant_of_ashes.png" description="A dark pact has been taken..." quality="2" />
+    <active id="22" maxcharges="3" name="Hollow Echo" chargetype="normal" gfx="hollow_echo.png" description="The past whispers back." quality="3" />
+    <active id="23" maxcharges="3" name="Rock Buster" chargetype="normal" gfx="rock_buster.png" description="Busting Rocks and Winning Games." quality="2"/>
+    <active id="24" maxcharges="2" name="Heartburn"  chargetype="normal"  gfx="heartburn.png" description="May the Embers of my Black Heart heal you." quality="2"/>
+    <active id="25" maxcharges="2" name="Bewitching Howl"  chargetype="normal"  gfx="bewitching_howl.png" description="Love and Fear. It's all the Same." quality="2"/>
+    <active id="26" maxcharges="3" name="Cricket's Bed"  chargetype="normal"  gfx="crickets_bed.png" description="Relaxing all cool." quality="3"/>
+    <active id="27" maxcharges="2" name="Popcorn Kernel" chargetype="normal"  gfx="popcorn_kernel.png" description="POP POP POP!!!" quality="0"/>
+    <active id="28" maxcharges="3" name="Borrowed Time" chargetype="normal"  gfx="borrowed_time.png" description="You never know what you can Borrow from Life..." quality="2"/>
+    <active id="30" maxcharges="1" name="Stale Burrito" chargetype="normal"  gfx="stale_burrito.png" description="Bleh..." quality="0"/>
+    <active id="1" maxcharges="5" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
+    <active id="2" maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
+    <active id="3" maxcharges="6" name="Smoldering Dice" chargetype="normal" gfx="smouldering_dice.png" description="Cook your items!" quality="4" />
+    <active id="4" maxcharges="4" name="Paper Shredder" chargetype="normal" gfx="paper_shredder.png" description="Cards B Gone" quality="3" />
+    <active id="5" maxcharges="4" name="Bee Buster" chargetype="normal" gfx="bee_buster.png" description="OUCH! Burning Stings!" quality="2" />
+    <active id="6" maxcharges="90" name="Holy Outburst" chargetype="timed" description="Make a mess!" gfx="holy_outburst.png" tags="offensive" quality="4"/>
+    <passive id="7" name="Damage Potion" gfx="damage_potion_item.png" description="It smells like ashes and anger" quality="4" cache="damage" />
+    <passive id="8" name="Pollen" gfx="pollen_item.png" description="It hurts when I sneeze." quality="2" cache="damage"/>
+    <passive id="9" name="Optic Bomb" gfx="optic_bomb.png" description="See them one last time" quality="3"/>
+    <passive id="10" name="Loaded Die" gfx="loaded_die.png" description="Unlucky Cheaters never win." quality="3"/>
+    <passive id="11" name="Chirping Alarm" gfx="chirping_alarm.png" description="it can wait one more day" quality="2"/>
+    <passive id="12" name="Pyro Mantle" gfx="pyro_mantle.png" description="Show your infernal presence" quality="3"/>
+    <passive id="13" name="Duality Mirror" gfx="duality_mirror.png" description="Double the Fun. Double the Trouble." quality="2"/>
+    <passive id="14" name="Pseudotheism" gfx="pseudotheism.png" description="False Gods give False hope." quality="3"/>
+    <passive id="15" name="Rule of Power" gfx="rule_of_power.png" description="The key to all challenges." quality="3"/>
+    <passive id="16" name="Dammy's Dilemma" gfx="dammys_dilemma.png" description="MOM! I WANT THIS TOY SWORD!" quality="3"/>
+    <passive id="17" name="Ash Crown" gfx="ash_crown.png" description="MOM! I WANT THIS TOY SWORD!" quality="3"/>
+    <passive id="18" name="Allfather Worm" gfx="allfather_worm.png" description="Where it all started." quality="1"/>
+    <passive id="19" name="Battery Booster" gfx="battery_booster.png" description="BZZZZZ...Im all charged up baby!" quality="2"/>
+    <passive id="20" name="Volcanic Sigil" gfx="volcanic_sigil.png" description="Magma does not equal Lava." quality="4"/>
+    <passive id="29" name="Bell Pepper" gfx="bell_pepper.png" description="A good Idea to put in a Blender !" quality="3"/>
 </items>

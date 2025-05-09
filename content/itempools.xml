@@ -7,31 +7,82 @@
         <item Name="Bee Buster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Paper Shredder"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Rule of Power" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Battery Booster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Rock Buster" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Bewitching Howl" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Cricket's Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Popcorn Kernel" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Borrowed Time" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Bell Pepper" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Stale Burrito" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool> 
+    <Pool Name="boss">
+        <item Name="Allfather Worm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Hollow Echo" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool> 
+    <Pool Name="devil">
+         <item Name="Duality Mirror"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+         <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+         <item Name="Ash Crown"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+         <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+         <item Name="Heartburn" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
+    </Pool>
+    <Pool Name="angel">
+        <item Name="Duality Mirror"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Dammy's Dilemma"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
     <Pool Name="shop">
         <item Name="Chirping Alarm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Bee Buster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Paper Shredder"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Rule of Power" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Battery Booster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Rock Buster" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Bewitching Howl" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Popcorn Kernel" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Borrowed Time" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Stale Burrito" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
     <Pool Name="secret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Optic Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Dammy's Dilemma"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Volcanic Sigil"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Cricket's Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
     <Pool Name="curse">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Rule of Power" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Pseudotheism"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Ash Crown"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Cricket's Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
     <Pool Name="ultraSecret">
         <Item Name="Loaded Die" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <Item Name="Optic Bomb" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Purgatory Flame" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Volcanic Sigil"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Covenant of Ashes" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+    </Pool>
     </Pool>
     <Pool Name="goldenChest">
         <item Name="Chirping Alarm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Rule of Power" Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Bee Buster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
         <item Name="Smouldering Dice"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Dammy's Dilemma"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Allfather Worm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Battery Booster"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />
+        <item Name="Popcorn Kernel" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Borrowed Time" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool>
 </ItemPools>

@@ -1,7 +1,17 @@
 ## Welclome to Project Burning King
 
 Project Burning King is a The Binding of Isaac: Repentence Mod that adds a new character and some new custom items , trinkets and even a new item pool into the Game.
-Current Status: Under Developement
+Current Status: Almost Done for Release of v1
+
+### Things to do:
+- ~~Item Count: 30/30~~
+- Items Rework: 0/5
+- Custom Character: 1/2
+- ~~new Item Pool: 1/1 (character specific)~~
+- Trinkts: 0/5 (IN PLANNING)
+- Consumables: 0/2 (IN PLANNING)
+- ~~Added new Wiki in Github~~ 
+
 
 
 ### What you need:
