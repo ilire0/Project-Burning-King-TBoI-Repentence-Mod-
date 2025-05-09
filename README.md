@@ -8,8 +8,8 @@ Current Status: Almost Done for Release of v1
 - Items Rework: 0/5
 - Custom Character: 1/2
 - ~~new Item Pool: 1/1 (character specific)~~
-- Trinkts: 0/10
-- Consumables: 0/10
+- Trinkts: 0/5 (IN PLANNING)
+- Consumables: 0/2 (IN PLANNING)
 - ~~Added new Wiki in Github~~ 
 
 
