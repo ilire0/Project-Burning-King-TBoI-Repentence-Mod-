@@ -14,6 +14,7 @@
         <item Name="Cricket's Bed" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
         <item Name="Popcorn Kernel" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
         <item Name="Borrowed Time" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+        <item Name="Bell Pepper" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
     </Pool> 
     <Pool Name="boss">
         <item Name="Allfather Worm"  Weight="1" DecreaseBy="1" RemoveOn="0.1" />

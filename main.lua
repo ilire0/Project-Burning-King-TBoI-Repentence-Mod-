@@ -29,6 +29,7 @@ require("the_button")
 require("volcanic_sigil")
 require("popcorn_kernel")
 require("borrowed_time")
+require("bell_pepper")
 
 
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")

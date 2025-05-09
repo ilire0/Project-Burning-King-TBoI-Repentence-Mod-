@@ -27,4 +27,5 @@
     <passive id="18" name="Allfather Worm" gfx="allfather_worm.png" description="Where it all started." quality="1"/>
     <passive id="19" name="Battery Booster" gfx="battery_booster.png" description="BZZZZZ...Im all charged up baby!" quality="2"/>
     <passive id="20" name="Volcanic Sigil" gfx="volcanic_sigil.png" description="Magma does not equal Lava." quality="4"/>
+    <passive id="29" name="Bell Pepper" gfx="bell_pepper.png" description="Spicy! but not really~" quality="3"/>
 </items>
