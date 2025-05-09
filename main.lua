@@ -3,6 +3,7 @@ local mod = RegisterMod("MyMod", 1)
 -- Require other Lua files and capture the returned item ID
 
 require("allfather_worm")
+require("stale_burrito")
 require("ash_crown")
 require("battery_booster")
 require("bee_buster")

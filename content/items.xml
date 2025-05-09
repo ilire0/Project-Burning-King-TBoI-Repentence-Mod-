@@ -7,6 +7,7 @@
     <active id="26" maxcharges="3" name="Cricket's Bed"  chargetype="normal"  gfx="crickets_bed.png" description="Relaxing all cool." quality="3"/>
     <active id="27" maxcharges="2" name="Popcorn Kernel" chargetype="normal"  gfx="popcorn_kernel.png" description="POP POP POP!!!" quality="0"/>
     <active id="28" maxcharges="3" name="Borrowed Time" chargetype="normal"  gfx="borrowed_time.png" description="You never know what you can Borrow from Life..." quality="2"/>
+    <active id="30" maxcharges="1" name="Stale Burrito" chargetype="normal"  gfx="stale_burrito.png" description="Bleh..." quality="0"/>
     <active id="1" maxcharges="5" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
     <active id="2" maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
     <active id="3" maxcharges="6" name="Smoldering Dice" chargetype="normal" gfx="smouldering_dice.png" description="Cook your items!" quality="4" />
@@ -27,5 +28,5 @@
     <passive id="18" name="Allfather Worm" gfx="allfather_worm.png" description="Where it all started." quality="1"/>
     <passive id="19" name="Battery Booster" gfx="battery_booster.png" description="BZZZZZ...Im all charged up baby!" quality="2"/>
     <passive id="20" name="Volcanic Sigil" gfx="volcanic_sigil.png" description="Magma does not equal Lava." quality="4"/>
-    <passive id="29" name="Bell Pepper" gfx="bell_pepper.png" description="Spicy! but not really~" quality="3"/>
+    <passive id="29" name="Bell Pepper" gfx="bell_pepper.png" description="A good Idea to put in a Blender !" quality="3"/>
 </items>
