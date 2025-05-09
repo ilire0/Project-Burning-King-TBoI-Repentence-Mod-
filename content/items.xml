@@ -6,7 +6,8 @@
     <active id="25" maxcharges="2" name="Bewitching Howl"  chargetype="normal"  gfx="bewitching_howl.png" description="Love and Fear. It's all the Same." quality="2"/>
     <active id="26" maxcharges="3" name="Cricket's Bed"  chargetype="normal"  gfx="crickets_bed.png" description="Relaxing all cool." quality="3"/>
     <active id="27" maxcharges="2" name="Popcorn Kernel" chargetype="normal"  gfx="popcorn_kernel.png" description="POP POP POP!!!" quality="0"/>
-    <active id="1" maxcharges="6" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
+    <active id="28" maxcharges="3" name="Borrowed Time" chargetype="normal"  gfx="borrowed_time.png" description="You never know what you can Borrow from Life..." quality="2"/>
+    <active id="1" maxcharges="5" name="The Button" chargetype="normal" gfx="button.png" description="cmon...press it :)" quality="4" />
     <active id="2" maxcharges="6" name="Purgatory Flame" chargetype="normal" gfx="purgatory_flames.png" description="May the Fire burn us all." quality="4" />
     <active id="3" maxcharges="6" name="Smoldering Dice" chargetype="normal" gfx="smouldering_dice.png" description="Cook your items!" quality="4" />
     <active id="4" maxcharges="4" name="Paper Shredder" chargetype="normal" gfx="paper_shredder.png" description="Cards B Gone" quality="3" />
