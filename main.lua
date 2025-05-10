@@ -202,7 +202,7 @@ local holyOutburstID = Isaac.GetItemIdByName("Holy Outburst")
 
 function mod:TaintedGabrielInit(player)
     if player:GetPlayerType() ~= taintedGabrielType then return end
-    player:SetPocketActiveItem(holyOutburstID, ActiveSlot.SLOT_POCKET, true)
+    player:SetPocketActiveItem(holyOutburstID, ActiveSlot.SLOT_POCKET, false)
     Game():GetItemPool():RemoveCollectible(holyOutburstID)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.TaintedGabrielInit)
