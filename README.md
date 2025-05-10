@@ -5,7 +5,7 @@ Current Status: Almost Done for Release of v1
 
 ### Things to do:
 - ~~Item Count: 30/30~~
-- Items Rework: 2/5
+- Items Rework: 3/5
 - Custom Character: 1/2
 - ~~new Item Pool: 1/1 (character specific)~~
 - Trinkts: 0/5 (IN PLANNING)
