@@ -30,7 +30,6 @@ require("the_button")
 require("volcanic_sigil")
 require("popcorn_kernel")
 require("borrowed_time")
-require("bell_pepper")
 
 
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
@@ -202,7 +201,7 @@ local holyOutburstID = Isaac.GetItemIdByName("Holy Outburst")
 
 function mod:TaintedGabrielInit(player)
     if player:GetPlayerType() ~= taintedGabrielType then return end
-    player:SetPocketActiveItem(holyOutburstID, ActiveSlot.SLOT_POCKET, false)
+    player:SetPocketActiveItem(holyOutburstID, ActiveSlot.SLOT_POCKET, true)
     Game():GetItemPool():RemoveCollectible(holyOutburstID)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.TaintedGabrielInit)
