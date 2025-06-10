@@ -1,8 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-	<name>Project Burning King</name>
-	<directory>mymod</directory>
-	<description/>
-	<version>1.0</version>
-	<visibility/>
+    <name>Project Burning King</name>
+    <directory>mymod</directory>
+    <id>3496771965</id>
+    <description>Project Burning King</description>
+    <version>1.2</version>
+    <visibility>Private</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Player Characters"/>
+    <tag id="Graphics"/>
 </metadata>
-

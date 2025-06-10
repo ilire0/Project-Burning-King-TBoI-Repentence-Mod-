@@ -195,7 +195,7 @@ function mod:GiveCostumesOnInit(player)
 end
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, mod.GiveCostumesOnInit)
 
--- Character: Tainted Gabriel
+--[[
 local taintedGabrielType = Isaac.GetPlayerTypeByName("Gabriel", true)
 local holyOutburstID = Isaac.GetItemIdByName("Holy Outburst")
 
@@ -217,3 +217,4 @@ function mod:HolyOutburstUse(_, _, player)
     return true
 end
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.HolyOutburstUse, holyOutburstID)
+]]
