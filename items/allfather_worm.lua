@@ -18,14 +18,14 @@ local wormTrinkets = {
 
 -- Define stat boosts for each Worm trinket
 local wormStatBoosts = {
-    [TrinketType.TRINKET_WIGGLE_WORM] = {Damage = 0.5},
-    [TrinketType.TRINKET_RING_WORM] = {Tears = 0.5},
-    [TrinketType.TRINKET_FLAT_WORM] = {Range = 1.0},
-    [TrinketType.TRINKET_PULSE_WORM] = {ShotSpeed = 0.2},
-    [TrinketType.TRINKET_HOOK_WORM] = {TearHeight = -1.0},
-    [TrinketType.TRINKET_TAPE_WORM] = {Range = 1.5},
-    [TrinketType.TRINKET_LAZY_WORM] = {TearDelay = -1},
-    [TrinketType.TRINKET_OUROBOROS_WORM] = {Damage = 1.0}
+    [TrinketType.TRINKET_WIGGLE_WORM] = { Damage = 0.5 },
+    [TrinketType.TRINKET_RING_WORM] = { Tears = 0.5 },
+    [TrinketType.TRINKET_FLAT_WORM] = { Range = 1.0 },
+    [TrinketType.TRINKET_PULSE_WORM] = { ShotSpeed = 0.2 },
+    [TrinketType.TRINKET_HOOK_WORM] = { TearHeight = -1.0 },
+    [TrinketType.TRINKET_TAPE_WORM] = { Range = 1.5 },
+    [TrinketType.TRINKET_LAZY_WORM] = { TearDelay = -1 },
+    [TrinketType.TRINKET_OUROBOROS_WORM] = { Damage = 1.0 }
 }
 
 -- Variables to track the current trinket and timer

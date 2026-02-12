@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = RegisterMod("PBK", 1)
 
 -- Bell Pepper Setup
 local BELL_PEPPER = Isaac.GetItemIdByName("Bell Pepper")
@@ -31,7 +31,8 @@ function mod:BellPepper_FireTear(tear)
         end
 
         if dirVector:Length() > 0 then
-            local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.RED_CANDLE_FLAME, 0, player.Position, dirVector * FIRE_SPEED, player):ToEffect()
+            local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.RED_CANDLE_FLAME, 0, player.Position,
+                dirVector * FIRE_SPEED, player):ToEffect()
 
             if fire and fire:GetSprite() then
                 fire:GetSprite():Play("Appear", true)
