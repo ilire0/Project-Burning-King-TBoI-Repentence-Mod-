@@ -3,12 +3,11 @@ local opticBomb = Isaac.GetItemIdByName("Optic Bomb")
 
 local hasGivenPyromaniac = {}
 local lastExplosionTime = 0
-local cooldownDuration = 120 -- 120 Frames = ~4 Sekunden
+local cooldownDuration = 60 -- 60 frames = 1 second
 
+-- Give Pyromaniac effect
 function mod:onUpdate(player)
     local id = player:GetCollectibleRNG(opticBomb):GetSeed()
-
-    -- Give Pyromaniac effect once
     if player:HasCollectible(opticBomb) and not hasGivenPyromaniac[id] then
         player:GetEffects():AddCollectibleEffect(CollectibleType.COLLECTIBLE_PYROMANIAC, false)
         hasGivenPyromaniac[id] = true
@@ -19,62 +18,43 @@ end
 
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, mod.onUpdate)
 
--------------------------------------------------
--- Burn on Hit
--------------------------------------------------
+-- Apply burn properly when tear hits enemy
 function mod:onEnemyHit(entity, amount, flags, source, countdown)
-    local player = source.Entity and source.Entity:ToPlayer()
+    -- Only apply to vulnerable enemies
+    if not entity:IsVulnerableEnemy() then return end
 
-    if player and player:HasCollectible(opticBomb) and entity:IsVulnerableEnemy() then
-        entity:AddBurn(EntityRef(player), 30, player.Damage * 0.05)
+    -- Make sure the damage source exists and is a tear
+    local tear = source.Entity
+    if tear and tear.Type == EntityType.ENTITY_TEAR then
+        local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
+        if player and player:HasCollectible(opticBomb) then
+            -- Burn lasts 60 frames (~1 sec), 15% of player damage per tick
+            entity:AddBurn(EntityRef(player), 90, player.Damage * 0.2)
+        end
     end
 end
 
 mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.onEnemyHit)
 
--------------------------------------------------
--- Explosion on Kill (with cooldown)
--------------------------------------------------
+-- Explosion on enemy death
 function mod:onEnemyDeath(entity)
+    if not entity:IsVulnerableEnemy() or entity:IsBoss() then return end
+
     local player = Isaac.GetPlayer(0)
+    if not player:HasCollectible(opticBomb) then return end
+
     local game = Game()
     local frameCount = game:GetFrameCount()
+    if frameCount - lastExplosionTime < cooldownDuration then return end
 
-    if player:HasCollectible(opticBomb)
-        and entity:IsVulnerableEnemy()
-        and not entity:IsBoss()
-        and (frameCount - lastExplosionTime >= cooldownDuration) then
-        local damage = player.Damage * 3
-        local radius = math.min(50 + (player.Damage * 2), 120)
+    -- Scale explosion: base + player damage, max radius 150
+    local damage = math.min(player.Damage * 5, 50) -- cap damage for balance
+    local radius = math.min(50 + player.Damage * 2, 150)
 
-        game:BombExplosionEffects(
-            entity.Position,
-            damage,
-            TearFlags.TEAR_NORMAL,
-            Color(1, 0.5, 0.2, 1),
-            player,
-            1,
-            true,
-            false
-        )
-
-        lastExplosionTime = frameCount
-    end
+    -- Explosion effect
+    game:BombExplosionEffects(entity.Position, damage, TearFlags.TEAR_NORMAL, Color(0.2, 0.2, 0.2, 1), player, 1, true,
+        false)
+    lastExplosionTime = frameCount
 end
-
--------------------------------------------------
--- Dark Grey Tears for Optic Bomb
--------------------------------------------------
-function mod:OnFireTear(tear)
-    local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
-
-    if player and player:HasCollectible(opticBomb) then
-        -- Dark grey color
-        tear.Color = Color(0.2, 0.2, 0.2, 1, 0, 0, 0)
-    end
-end
-
-mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, mod.OnFireTear)
-
 
 mod:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, mod.onEnemyDeath)
