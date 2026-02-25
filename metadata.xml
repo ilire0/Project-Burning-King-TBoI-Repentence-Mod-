@@ -11,4 +11,6 @@
     <tag id="Active Items"/>
     <tag id="Player Characters"/>
     <tag id="Graphics"/>
+    <itempools src="resources/itempools.xml"/>
+    <tag id="Trinkets"/>
 </metadata>

@@ -5,9 +5,9 @@ require("items.purgatory_flame")
 -- CHARACTER SETUP
 -------------------------------------------------
 
-local gabrielType = Isaac.GetPlayerTypeByName("Gabriel", false)
-local hairCostume = Isaac.GetCostumeIdByPath("gfx/characters/gabriel_hair.anm2")
-local stolesCostume = Isaac.GetCostumeIdByPath("gfx/characters/gabriel_stoles.anm2")
+local gabrielType = Isaac.GetPlayerTypeByName("King Manasse", false)
+local hairCostume = Isaac.GetCostumeIdByPath("gfx/characters/km_crown.anm2")
+local stolesCostume = Isaac.GetCostumeIdByPath("gfx/characters/km_body.anm2")
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
 
 -------------------------------------------------

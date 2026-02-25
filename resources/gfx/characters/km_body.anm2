@@ -1,8 +1,8 @@
 <AnimatedActor>
-	<Info CreatedBy="" CreatedOn="10/12/2023 9:34:11 PM" Version="11" Fps="30"/>
+	<Info CreatedBy="" CreatedOn="22.02.2026 20:08:30" Version="11" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="costumes\gabriel body.png" Id="0"/>
+			<Spritesheet Path="costumes\km_body.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="body0" Id="0" SpritesheetId="0"/>

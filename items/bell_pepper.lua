@@ -1,101 +1,107 @@
 local mod = RegisterMod("PBK", 1)
 
--- Bell Pepper Setup
 local BELL_PEPPER = Isaac.GetItemIdByName("Bell Pepper")
+
 local FIRE_DURATION_FRAMES = 900
 local FIRE_BLOCK_LIMIT = 4
-local FIRE_SPEED = 8
+local FIRE_SPEED = 10
 
-local bellPepperFires = {} -- Track spawned fire effects
+local bellPepperFires = {}
 
--- Spawn Green Fire in Shooting Direction
+----------------------------------------------------
+-- Spawn Green Flame When Shooting
+----------------------------------------------------
 function mod:BellPepper_FireTear(tear)
-    local player = tear.Parent:ToPlayer()
-    if not player or not player:HasCollectible(BELL_PEPPER) then return end
+    local player = tear.SpawnerEntity and tear.SpawnerEntity:ToPlayer()
+    if not player then return end
+    if not player:HasCollectible(BELL_PEPPER) then return end
 
-    local luck = player.Luck
-    local chance = math.min(10 + math.floor(luck * 4), 50)
+    local chance = math.min(10 + (player.Luck * 4), 50)
 
-    if math.random(100) <= chance then
-        local shootDir = player:GetFireDirection()
-        local dirVector = Vector.Zero
+    if player:GetCollectibleRNG(BELL_PEPPER):RandomFloat() <= (chance / 100) then
+        local dir = tear.Velocity:Normalized()
+        if dir:Length() == 0 then return end
 
-        if shootDir == Direction.LEFT then
-            dirVector = Vector(-1, 0)
-        elseif shootDir == Direction.UP then
-            dirVector = Vector(0, -1)
-        elseif shootDir == Direction.RIGHT then
-            dirVector = Vector(1, 0)
-        elseif shootDir == Direction.DOWN then
-            dirVector = Vector(0, 1)
-        end
+        local fire = Isaac.Spawn(
+            EntityType.ENTITY_EFFECT,
+            EffectVariant.RED_CANDLE_FLAME,
+            0,
+            player.Position,
+            dir * FIRE_SPEED,
+            player
+        ):ToEffect()
 
-        if dirVector:Length() > 0 then
-            local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.RED_CANDLE_FLAME, 0, player.Position,
-                dirVector * FIRE_SPEED, player):ToEffect()
+        if fire then
+            fire:GetSprite():Play("Appear", true)
+            fire.Color = Color(0.2, 1, 0.2, 1) -- nice green
+            fire:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK)
+            fire:AddEntityFlags(EntityFlag.FLAG_NO_TARGET)
 
-            if fire and fire:GetSprite() then
-                fire:GetSprite():Play("Appear", true)
-                fire.Color = Color(0, 1, 0, 1)
-                fire:AddEntityFlags(EntityFlag.FLAG_NO_PHYSICS_KNOCKBACK | EntityFlag.FLAG_NO_TARGET)
 
-                bellPepperFires[fire.InitSeed] = {
-                    Entity = fire,
-                    Timer = 0,
-                    Blocked = 0
-                }
-            end
+            bellPepperFires[fire.InitSeed] = {
+                Entity = fire,
+                Timer = 0,
+                Blocked = 0
+            }
         end
     end
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, mod.BellPepper_FireTear)
 
--- Update Fire Timers and Handle Wall Collision
+----------------------------------------------------
+-- Update Flames
+----------------------------------------------------
 function mod:BellPepper_UpdateFires()
     for seed, data in pairs(bellPepperFires) do
-        if data.Entity and data.Entity:Exists() then
+        if not data.Entity or not data.Entity:Exists() then
+            bellPepperFires[seed] = nil
+        else
             local fire = data.Entity
             data.Timer = data.Timer + 1
 
-            -- Wall collision detection
-            if Game():GetRoom():GetGridCollisionAtPos(fire.Position) ~= GridCollisionClass.COLLISION_NONE then
-                fire.Velocity = Vector.Zero
-                fire:Remove()
-                bellPepperFires[seed] = nil
-            elseif data.Timer >= FIRE_DURATION_FRAMES then
+            -- Lifetime check
+            if data.Timer >= FIRE_DURATION_FRAMES then
                 fire:Remove()
                 bellPepperFires[seed] = nil
             end
-        else
-            bellPepperFires[seed] = nil
+
+            -- Wall collision
+            if Game():GetRoom():GetGridCollisionAtPos(fire.Position) ~= GridCollisionClass.COLLISION_NONE then
+                fire:Remove()
+                bellPepperFires[seed] = nil
+            end
+
+            -- Projectile blocking
+            for _, projectile in ipairs(Isaac.FindByType(EntityType.ENTITY_PROJECTILE)) do
+                if projectile.Position:Distance(fire.Position) < 25 then
+                    projectile:Remove()
+
+                    data.Blocked = data.Blocked + 1
+
+                    if data.Blocked >= FIRE_BLOCK_LIMIT then
+                        fire:Remove()
+                        bellPepperFires[seed] = nil
+                        break
+                    end
+                end
+            end
         end
     end
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_UPDATE, mod.BellPepper_UpdateFires)
 
--- Handle Projectile Blocking
-function mod:BellPepper_BlockProjectiles(entity, damageAmount, damageFlags, source)
-    if entity.Type == EntityType.ENTITY_EFFECT and entity.Variant == EffectVariant.RED_CANDLE_FLAME then
-        local data = bellPepperFires[entity.InitSeed]
-        if data and source and source.Type == EntityType.ENTITY_PROJECTILE then
-            data.Blocked = data.Blocked + 1
-            if data.Blocked >= FIRE_BLOCK_LIMIT then
-                entity:Remove()
-                bellPepperFires[entity.InitSeed] = nil
-            end
-            return false
+----------------------------------------------------
+-- Clean on New Room
+----------------------------------------------------
+function mod:BellPepper_NewRoom()
+    for _, data in pairs(bellPepperFires) do
+        if data.Entity and data.Entity:Exists() then
+            data.Entity:Remove()
         end
     end
-end
-
-mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, mod.BellPepper_BlockProjectiles)
-
--- Clean up on New Room
-function mod:BellPepper_NewRoom()
     bellPepperFires = {}
 end
 
 mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, mod.BellPepper_NewRoom)
-mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, mod.BellPepper_AddToPool)

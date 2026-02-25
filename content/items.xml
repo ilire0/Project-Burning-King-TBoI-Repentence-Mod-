@@ -29,4 +29,7 @@
     <passive id="19" name="Battery Booster" gfx="battery_booster.png" description="BZZZZZ...Im all charged up baby!" quality="2"/>
     <passive id="20" name="Volcanic Sigil" gfx="volcanic_sigil.png" description="Magma does not equal Lava." quality="4"/>
     <passive id="29" name="Bell Pepper" gfx="bell_pepper.png" description="A good Idea to put in a Blender !" quality="3"/>
+    <trinket id="31" name="Fragment of Sol" description="Sun-Kissed" gfx="fragment_of_sol.png" cache="all"/>
 </items>
+
+
