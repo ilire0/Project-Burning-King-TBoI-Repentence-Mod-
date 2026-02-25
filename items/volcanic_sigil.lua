@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 
 -- Define the item ID for the Volcanic Sigil
 local VOLCANIC_SIGIL = Isaac.GetItemIdByName("Volcanic Sigil")
@@ -29,13 +29,14 @@ function mod:CreateVolcanicCreep(player)
     -- Spawn multiple creeps with offsets
     for _, offset in ipairs(offsets) do
         local creepPos = centerPos + offset
-        local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_LEMON_PARTY, 0, creepPos, Vector(0, 0), player):ToEffect()
+        local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_LEMON_PARTY, 0, creepPos,
+            Vector(0, 0), player):ToEffect()
         if creep then
-            creep:SetTimeout(1000000)  -- Creep remains until room is cleared
-            creep.SpriteScale = Vector(2, 2)  -- Standard size
-            creep:Update()  -- Update to apply changes immediately
+            creep:SetTimeout(1000000)                  -- Creep remains until room is cleared
+            creep.SpriteScale = Vector(2, 2)           -- Standard size
+            creep:Update()                             -- Update to apply changes immediately
             creep.CollisionDamage = player.Damage / 2  -- Half of player's damage
-            creep.Color = Color(1, 0.6, 0, 1, 0, 0, 0)  -- More orange color
+            creep.Color = Color(1, 0.6, 0, 1, 0, 0, 0) -- More orange color
         end
     end
 
@@ -44,9 +45,10 @@ function mod:CreateVolcanicCreep(player)
     for i = 1, numFlames do
         local offset = Vector(math.random(-40, 40), math.random(-40, 40))
         local flamePos = centerPos + offset
-        local flame = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, 0, flamePos, Vector(0, 0), player)
+        local flame = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, 0, flamePos, Vector(0, 0),
+            player)
         if flame then
-            flame.CollisionDamage = player.Damage  -- Full damage
+            flame.CollisionDamage = player.Damage -- Full damage
         end
     end
 end
@@ -60,7 +62,7 @@ function mod:OnNewRoom()
         local room = Game():GetRoom()
         if not room:IsClear() and roomCounter >= 3 then
             mod:CreateVolcanicCreep(player)
-            roomCounter = 0  -- Reset counter after effect triggers
+            roomCounter = 0 -- Reset counter after effect triggers
         end
     end
 end

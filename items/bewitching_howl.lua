@@ -1,8 +1,8 @@
-CricketsHowlMod = RegisterMod("Bewitching Howl", 1)
+CricketsHowlMod = PBK
 
 local CricketsHowl = {
     ItemId = Isaac.GetItemIdByName("Bewitching Howl"),
-    CharmDuration = 3 * 30, -- 3 seconds in game ticks
+    CharmDuration = 3 * 30,      -- 3 seconds in game ticks
     BossStunDuration = 1.5 * 30, -- 1.5 seconds in game ticks
     FlyCountMin = 1,
     FlyCountMax = 3

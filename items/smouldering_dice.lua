@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 
 -- Smoldering Dice
 local SMOLDERING_DICE = Isaac.GetItemIdByName("Smoldering Dice")

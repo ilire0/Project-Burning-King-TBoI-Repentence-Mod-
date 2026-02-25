@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local PURGATORY_FLAME = Isaac.GetItemIdByName("Purgatory Flame")
 
 local PERMANENT_STATS = {
@@ -59,22 +59,22 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
             if entity.Variant == 1 then -- Blaue Flamme
                 blueFlameCount = blueFlameCount + 1
             end
-        elseif entity.Type == EntityType.ENTITY_EFFECT and 
-              (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
-               entity.Variant == EffectVariant.BLUE_FLAME) then
+        elseif entity.Type == EntityType.ENTITY_EFFECT and
+            (entity.Variant == EffectVariant.RED_CANDLE_FLAME or
+                entity.Variant == EffectVariant.BLUE_FLAME) then
             fireCount = fireCount + 1
         end
     end
 
     -- Dann alle Flammen entfernen
     for _, entity in ipairs(entities) do
-        if entity.Type == EntityType.ENTITY_FIREPLACE or 
-           (entity.Type == EntityType.ENTITY_EFFECT and 
-            (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
-             entity.Variant == EffectVariant.BLUE_FLAME)) then
-                Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, entity.Position, Vector(0, 0), nil)
-                sfx:Play(SoundEffect.SOUND_FIREDEATH_HISS, 1.0, 0, false, 1.0)
-                entity:Remove()
+        if entity.Type == EntityType.ENTITY_FIREPLACE or
+            (entity.Type == EntityType.ENTITY_EFFECT and
+                (entity.Variant == EffectVariant.RED_CANDLE_FLAME or
+                    entity.Variant == EffectVariant.BLUE_FLAME)) then
+            Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, entity.Position, Vector(0, 0), nil)
+            sfx:Play(SoundEffect.SOUND_FIREDEATH_HISS, 1.0, 0, false, 1.0)
+            entity:Remove()
         end
     end
 
@@ -82,7 +82,8 @@ function mod:UsePurgatoryFlame(item, rng, player, useFlags, activeSlot, varData)
         local data = player:GetData()
         data.FlamesPurged = (data.FlamesPurged or 0) + fireCount
 
-        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_SPEED | CacheFlag.CACHE_RANGE | CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_LUCK)
+        player:AddCacheFlags(CacheFlag.CACHE_DAMAGE | CacheFlag.CACHE_SPEED | CacheFlag.CACHE_RANGE |
+        CacheFlag.CACHE_FIREDELAY | CacheFlag.CACHE_LUCK)
         player:EvaluateItems()
 
         -- Schwarzes Herz für jede 50. Flamme

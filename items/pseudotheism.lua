@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local PSEUDOTHEISM = Isaac.GetItemIdByName("Pseudotheism")
 
 function mod:OnNewRoom()
@@ -32,7 +32,8 @@ function mod:OnNewRoom()
                     end
 
                     local newItem = itemPool:GetCollectible(poolType, false, entity.InitSeed)
-                    entity:ToPickup():Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true, false, false)
+                    entity:ToPickup():Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, true,
+                        false, false)
                 end
             end
         end

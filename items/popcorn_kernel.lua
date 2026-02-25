@@ -1,4 +1,4 @@
-local PopcornMod = RegisterMod("Popcorn Kernel", 1)
+local PopcornMod = PBK
 local PopcornItem = Isaac.GetItemIdByName("Popcorn Kernel")
 
 -- Use Item: Fire a big, yellow-white bouncing "corn" tear
@@ -32,6 +32,7 @@ function PopcornMod:UsePopcorn(_, rng, player)
 
     return true
 end
+
 PopcornMod:AddCallback(ModCallbacks.MC_USE_ITEM, PopcornMod.UsePopcorn, PopcornItem)
 
 -- On tear update: split into smaller corn tears when it dies
@@ -75,4 +76,5 @@ function PopcornMod:OnTearUpdate(tear)
         end
     end
 end
+
 PopcornMod:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, PopcornMod.OnTearUpdate)

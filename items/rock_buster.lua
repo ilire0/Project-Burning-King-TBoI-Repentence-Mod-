@@ -1,4 +1,4 @@
-local BoneShaker = RegisterMod("MyMod", 1)
+local BoneShaker = PBK
 local CollectibleType = {
     BONE_SHAKER = Isaac.GetItemIdByName("Rock Buster")
 }
@@ -14,7 +14,8 @@ function BoneShaker:UseItem(_, rng, player, useFlags, activeSlot, varData)
             local gridType = grid:GetType()
             if gridType == GridEntityType.GRID_ROCK or gridType == GridEntityType.GRID_ROCK_ALT then
                 grid:Destroy(true)
-                game:BombExplosionEffects(room:GetGridPosition(i), 40, TearFlags.TEAR_NORMAL, Color(1, 1, 1, 1, 0.8, 0.8, 0.8), player, 0.5, false, false)
+                game:BombExplosionEffects(room:GetGridPosition(i), 40, TearFlags.TEAR_NORMAL,
+                    Color(1, 1, 1, 1, 0.8, 0.8, 0.8), player, 0.5, false, false)
             end
         end
     end
@@ -29,7 +30,6 @@ function BoneShaker:UseItem(_, rng, player, useFlags, activeSlot, varData)
                 secretDoorFound = true
 
                 if not door:IsOpen() then
-                    
                     -- Position der Tür herausfinden
                     local doorPos = door.Position
                     local gridIndex = room:GetGridIndex(doorPos)

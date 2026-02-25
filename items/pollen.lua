@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local POLLEN_ITEM_ID = Isaac.GetItemIdByName("Pollen")
 local POLLEN_POISON_CHANCE = 0.4
 local POLLEN_POISON_LENGTH = 3
@@ -24,7 +24,8 @@ function mod:PollenNewRoom()
             for _, entity in ipairs(entities) do
                 if entity:IsActiveEnemy() and entity:IsVulnerableEnemy() then
                     if rng:RandomFloat() < POLLEN_POISON_CHANCE then
-                        entity:AddPoison(EntityRef(player), POLLEN_POISON_LENGTH + (ONE_INTERVAL_OF_POISON * copyCount), player.Damage)
+                        entity:AddPoison(EntityRef(player), POLLEN_POISON_LENGTH + (ONE_INTERVAL_OF_POISON * copyCount),
+                            player.Damage)
                     end
                 end
             end
@@ -32,10 +33,11 @@ function mod:PollenNewRoom()
             -- Spawn pollen clouds at random positions in the room
             local numClouds = 1 + rng:RandomInt(2) + copyCount - 1
             for i = 1, numClouds do
-                local randomPos = room:GetRandomPosition(5)  -- avoid spawning on rocks or pits
+                local randomPos = room:GetRandomPosition(5) -- avoid spawning on rocks or pits
                 local velocity = Vector.FromAngle(rng:RandomInt(360)) * (0.5 + 0.2 * copyCount)
 
-                local cloud = Isaac.Spawn(EntityType.ENTITY_EFFECT, POLLEN_CLOUD_VARIANT, 0, randomPos, velocity, player):ToEffect()
+                local cloud = Isaac.Spawn(EntityType.ENTITY_EFFECT, POLLEN_CLOUD_VARIANT, 0, randomPos, velocity, player)
+                    :ToEffect()
                 cloud:GetData().IsPollenCloud = true
                 cloud:GetData().Owner = player
                 cloud:GetData().Life = POLLEN_CLOUD_LIFESPAN

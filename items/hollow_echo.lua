@@ -1,4 +1,4 @@
-local HollowEcho = RegisterMod("Hollow Echo", 1)
+local HollowEcho = PBK
 local ItemId = Isaac.GetItemIdByName("Hollow Echo")
 local EchoChamberId = CollectibleType.COLLECTIBLE_ECHO_CHAMBER
 

@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 
 -- Define the item ID for the new Battery Item
 local BATTERY_ITEM = Isaac.GetItemIdByName("Battery Booster")
@@ -13,9 +13,10 @@ function mod:IncreaseBatterySpawnChance()
     if roomType == RoomType.ROOM_TREASURE or roomType == RoomType.ROOM_SHOP then
         local rng = RNG()
         rng:SetSeed(Random(), 1)
-        if rng:RandomFloat() < 0.2 then  -- 20% chance to spawn a battery
+        if rng:RandomFloat() < 0.2 then -- 20% chance to spawn a battery
             local pos = Game():GetRoom():FindFreePickupSpawnPosition(Vector(320, 280), 0, true)
-            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, BatterySubType.BATTERY_NORMAL, pos, Vector(0, 0), nil)
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, BatterySubType.BATTERY_NORMAL, pos,
+                Vector(0, 0), nil)
         end
     end
 end
@@ -27,7 +28,8 @@ function mod:OnPickupInit(pickup)
         if not pickup:GetData().Processed then
             if pickup.SubType == BatterySubType.BATTERY_MICRO then
                 -- Transform small battery into normal battery
-                pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, BatterySubType.BATTERY_NORMAL, true)
+                pickup:Morph(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, BatterySubType.BATTERY_NORMAL,
+                    true)
             end
             -- Mark the battery as processed
             pickup:GetData().Processed = true

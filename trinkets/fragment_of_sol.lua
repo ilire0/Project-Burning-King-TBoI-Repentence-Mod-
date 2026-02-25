@@ -1,4 +1,4 @@
-local mod = RegisterMod("PBK", 1)
+local mod = PBK
 
 local FRAGMENT_OF_SOL = Isaac.GetTrinketIdByName("Fragment of Sol")
 

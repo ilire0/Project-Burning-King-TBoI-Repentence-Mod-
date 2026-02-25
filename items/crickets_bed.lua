@@ -1,4 +1,4 @@
-GuppysCocoonMod = RegisterMod("Cricket's Bed", 1)
+GuppysCocoonMod = PBK
 
 local GuppysCocoon = {
     ItemId = Isaac.GetItemIdByName("Cricket's Bed"),

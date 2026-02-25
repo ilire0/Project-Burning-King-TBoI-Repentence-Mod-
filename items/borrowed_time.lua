@@ -1,4 +1,4 @@
-local BorrowedTimeMod = RegisterMod("Borrowed Time", 1)
+local BorrowedTimeMod = PBK
 local ItemId = Isaac.GetItemIdByName("Borrowed Time")
 local borrowedData = {
     temporaryItems = {},
@@ -32,6 +32,7 @@ function BorrowedTimeMod:UseBorrowedTime(_, rng, player, flags)
 
     return true
 end
+
 BorrowedTimeMod:AddCallback(ModCallbacks.MC_USE_ITEM, BorrowedTimeMod.UseBorrowedTime, ItemId)
 
 -- Wird aufgerufen, wenn ein neuer Raum betreten wird
@@ -52,4 +53,5 @@ function BorrowedTimeMod:OnNewRoom()
     borrowedData.temporaryItems = {}
     borrowedData.originalActives = {}
 end
+
 BorrowedTimeMod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, BorrowedTimeMod.OnNewRoom)

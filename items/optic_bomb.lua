@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local opticBomb = Isaac.GetItemIdByName("Optic Bomb")
 
 local hasGivenPyromaniac = {}

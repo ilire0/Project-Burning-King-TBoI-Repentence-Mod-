@@ -1,4 +1,4 @@
-local mod = RegisterMod("PBK", 1)
+local mod = PBK
 
 -- Player Type
 local taintedGabrielType = Isaac.GetPlayerTypeByName("Gabriel", true)

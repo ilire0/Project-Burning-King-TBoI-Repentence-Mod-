@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local damagePotion = Isaac.GetItemIdByName("Damage Potion")
 local damagePotionDamage = 20
 

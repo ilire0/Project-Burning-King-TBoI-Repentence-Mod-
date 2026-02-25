@@ -2,7 +2,7 @@
 local AllfatherWorm = Isaac.GetItemIdByName("Allfather Worm")
 
 -- Define a mod table
-local myMod = RegisterMod("Allfather Worm Mod", 1)
+local myMod = PBK
 
 -- List of Worm trinket IDs
 local wormTrinkets = {

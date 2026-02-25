@@ -1,15 +1,15 @@
 --- Loaded Die Effect
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local game = Game()
 local rng = RNG()
 local sfx = SFXManager()
 
 local LOADED_DIE_ITEM = Isaac.GetItemIdByName("Loaded Die")
-local usedRooms = {}  -- Table to track rooms where the effect has been used
+local usedRooms = {} -- Table to track rooms where the effect has been used
 
 -- Function to roll the die with Luck influence
 local function RollLoadedDie(luck)
-    local roll = rng:RandomInt(6) + 1  -- Base roll (1-6)
+    local roll = rng:RandomInt(6) + 1 -- Base roll (1-6)
 
     if luck <= -5 then
         -- Force roll to be between 1 and 4 for bad luck
@@ -19,7 +19,7 @@ local function RollLoadedDie(luck)
     if luck >= 5 then
         -- Luck 5+: Reduce chance of rolling 1-2
         if roll <= 2 and rng:RandomFloat() < (luck / 15) then
-            roll = roll + rng:RandomInt(4) + 1  -- Reroll to 3-6
+            roll = roll + rng:RandomInt(4) + 1 -- Reroll to 3-6
         end
     end
 
@@ -56,14 +56,14 @@ local function GetRoomItemPool()
     elseif roomType == RoomType.ROOM_PLANETARIUM then
         return ItemPoolType.POOL_PLANETARIUM
     else
-        return ItemPoolType.POOL_TREASURE  -- Default to treasure pool if no specific pool is found
+        return ItemPoolType.POOL_TREASURE -- Default to treasure pool if no specific pool is found
     end
 end
 
 local function RerollWithDelay(pickup, newItem)
     local pos = pickup.Position
-    game:SpawnParticles(pos, EffectVariant.POOF01, 1, 0, Color.Default, 0)  -- Smoke effect
-    sfx:Play(SoundEffect.SOUND_FART, 1, 0, false, 1)  -- Play damage noise
+    game:SpawnParticles(pos, EffectVariant.POOF01, 1, 0, Color.Default, 0) -- Smoke effect
+    sfx:Play(SoundEffect.SOUND_FART, 1, 0, false, 1)                       -- Play damage noise
 
     -- Wait for a few frames (3 frames delay)
     for i = 1, 7 do
@@ -76,11 +76,11 @@ end
 
 -- Function to handle item pickup
 function mod:OnItemPickup(pickup)
-    local player = Isaac.GetPlayer(0)  -- Assuming single player for simplicity
+    local player = Isaac.GetPlayer(0) -- Assuming single player for simplicity
     if player:HasCollectible(LOADED_DIE_ITEM) and pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
         local itemConfig = Isaac.GetItemConfig():GetCollectible(pickup.SubType)
         if itemConfig and itemConfig.Type == ItemType.ITEM_ACTIVE then
-            return  -- Ignore active items
+            return -- Ignore active items
         end
 
         local level = game:GetLevel()
@@ -88,7 +88,7 @@ function mod:OnItemPickup(pickup)
         local roomID = roomDesc.GridIndex
 
         if usedRooms[roomID] then
-            return  -- Prevent multiple activations in the same room
+            return -- Prevent multiple activations in the same room
         end
 
         local luck = player.Luck
@@ -102,17 +102,17 @@ function mod:OnItemPickup(pickup)
             -- BAD roll: Change the item **on the pedestal** to something else
             local newItem = itemPool:GetCollectible(GetRoomItemPool(), false)
             mod:StartCoroutine(RerollWithDelay, pickup, newItem)
-            
         elseif roll >= 5 then
             -- GOOD roll: Spawn an **extra item pedestal** with a random item
             local extraItem = itemPool:GetCollectible(GetRoomItemPool(), false)
-            local spawnPos = pickup.Position + Vector(40, 0)  -- Slightly offset from original item
-            local spawnedPickup = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, extraItem, spawnPos, Vector(0,0), nil)
-            spawnedPickup:GetData().isSpawnedByLoadedDie = true  -- Mark the spawned item
-            game:SpawnParticles(spawnPos, EffectVariant.POOF01, 1, 0, Color.Default, 0)  -- Smoke effect
+            local spawnPos = pickup.Position + Vector(40, 0)                            -- Slightly offset from original item
+            local spawnedPickup = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, extraItem,
+                spawnPos, Vector(0, 0), nil)
+            spawnedPickup:GetData().isSpawnedByLoadedDie = true                         -- Mark the spawned item
+            game:SpawnParticles(spawnPos, EffectVariant.POOF01, 1, 0, Color.Default, 0) -- Smoke effect
         end
 
-        usedRooms[roomID] = true  -- Mark the Loaded Die as used in this room
+        usedRooms[roomID] = true -- Mark the Loaded Die as used in this room
     end
 end
 
@@ -147,4 +147,3 @@ function mod:StartCoroutine(func, ...)
     end
     step(...)
 end
-

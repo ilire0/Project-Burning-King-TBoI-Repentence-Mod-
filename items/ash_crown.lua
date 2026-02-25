@@ -2,7 +2,7 @@
 local AshCrown = Isaac.GetItemIdByName("Ash Crown")
 
 -- Define a mod table
-local myMod = RegisterMod("Ash Crown Mod", 1)
+local myMod = PBK
 
 -- Variables to track affected enemies and frame count
 local affectedEnemies = {}
@@ -30,11 +30,12 @@ local function OnGameUpdate()
                     -- Check if the tear belongs to the player
                     if tear and tear.Position and tear.SpawnerType == EntityType.ENTITY_PLAYER then
                         -- Spawn the Black Powder effect
-                        local blackPowderEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACKPOWDER, 0, tear.Position, Vector.Zero, player):ToEffect()
+                        local blackPowderEffect = Isaac.Spawn(EntityType.ENTITY_EFFECT,
+                            EffectVariant.PLAYER_CREEP_BLACKPOWDER, 0, tear.Position, Vector.Zero, player):ToEffect()
                         if blackPowderEffect then
                             blackPowderEffect.SpriteScale = Vector(0.7, 0.7) -- Make it larger
-                            blackPowderEffect:SetTimeout(120) -- Set the effect to last for 120 frames (2 seconds)
-                            blackPowderEffect:Update() -- Update to apply changes immediately
+                            blackPowderEffect:SetTimeout(120)                -- Set the effect to last for 120 frames (2 seconds)
+                            blackPowderEffect:Update()                       -- Update to apply changes immediately
                         end
                     end
                 end
@@ -46,7 +47,8 @@ local function OnGameUpdate()
     for _, entity in ipairs(Isaac.GetRoomEntities()) do
         if entity:IsVulnerableEnemy() then
             -- Check if the enemy is on any black powder effect
-            local blackPowderEffects = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACKPOWDER, -1, false, false)
+            local blackPowderEffects = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACKPOWDER,
+                -1, false, false)
             for _, effect in ipairs(blackPowderEffects) do
                 if entity.Position:Distance(effect.Position) < 40 then
                     -- Apply slowing effect for 180 frames (3 seconds)
@@ -68,7 +70,8 @@ local function OnGameUpdate()
         local enemy = affectedEnemies[i]
         if not enemy:Exists() or enemy:IsDead() then
             -- Create a smaller explosion at the enemy's position
-            Game():BombExplosionEffects(enemy.Position, 20, TearFlags.TEAR_NORMAL, Color.Default, player, 0.5, true, false)
+            Game():BombExplosionEffects(enemy.Position, 20, TearFlags.TEAR_NORMAL, Color.Default, player, 0.5, true,
+                false)
             table.remove(affectedEnemies, i)
         end
     end

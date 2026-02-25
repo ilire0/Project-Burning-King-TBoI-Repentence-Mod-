@@ -1,4 +1,4 @@
-RegisterMod("PBK", 1)
+PBK = RegisterMod("PBK", 1)
 
 -- Require other Lua files and capture the returned item ID
 

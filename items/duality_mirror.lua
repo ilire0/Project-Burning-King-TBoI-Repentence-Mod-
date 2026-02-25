@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local DUALITY_MIRROR = Isaac.GetItemIdByName("Duality Mirror")
 
 local initialStats = {}
@@ -34,7 +34,7 @@ function mod:EvaluateDualityMirrorCache(player, cacheFlag)
             player.TearRange = stats.Range + additionalRange * 2
         end
         if cacheFlag == CacheFlag.CACHE_FIREDELAY then
-            local additionalFireDelay = player.MaxFireDelay - stats.FireDelay -- FireDelay works inversely
+            local additionalFireDelay = player.MaxFireDelay - stats.FireDelay            -- FireDelay works inversely
             player.MaxFireDelay = math.max(1, stats.FireDelay + additionalFireDelay * 2) -- Ensure FireDelay stays positive
         end
         if cacheFlag == CacheFlag.CACHE_LUCK then

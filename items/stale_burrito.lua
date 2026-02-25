@@ -1,5 +1,5 @@
 -- Stale Burrito Active Item Implementation
-local mod = RegisterMod("YourModName", 1)
+local mod = PBK
 local StaleBurrito = {}
 
 -- Item ID (replace with your actual item name from items.xml)

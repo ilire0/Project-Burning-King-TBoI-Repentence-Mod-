@@ -1,4 +1,4 @@
-local mod = RegisterMod("NulCharacter", 1)
+local mod = PBK
 
 --==================================================
 -- CONSTANTS

@@ -1,4 +1,4 @@
-local mod = RegisterMod("PBK", 1)
+local mod = PBK
 require("items.purgatory_flame")
 
 -------------------------------------------------

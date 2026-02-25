@@ -1,4 +1,4 @@
-local mod = RegisterMod("PBK", 1)
+local mod = PBK
 
 local BELL_PEPPER = Isaac.GetItemIdByName("Bell Pepper")
 

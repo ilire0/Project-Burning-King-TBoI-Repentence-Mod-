@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 
 --- Bee Buster
 local BEE_BUSTER = Isaac.GetItemIdByName("Bee Buster")
@@ -16,20 +16,20 @@ function mod:UseBeeBuster(item, rng, player, useFlags, activeSlot, varData)
 
     -- Count all flames before removing them
     for _, entity in ipairs(entities) do
-        if entity.Type == EntityType.ENTITY_FIREPLACE or 
-           (entity.Type == EntityType.ENTITY_EFFECT and 
-            (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
-             entity.Variant == EffectVariant.BLUE_FLAME)) then
+        if entity.Type == EntityType.ENTITY_FIREPLACE or
+            (entity.Type == EntityType.ENTITY_EFFECT and
+                (entity.Variant == EffectVariant.RED_CANDLE_FLAME or
+                    entity.Variant == EffectVariant.BLUE_FLAME)) then
             fireCount = fireCount + 1
         end
     end
 
     -- Remove all flames, spawn smoke effects, and play extinguish sound
     for _, entity in ipairs(entities) do
-        if entity.Type == EntityType.ENTITY_FIREPLACE or 
-           (entity.Type == EntityType.ENTITY_EFFECT and 
-            (entity.Variant == EffectVariant.RED_CANDLE_FLAME or 
-             entity.Variant == EffectVariant.BLUE_FLAME)) then
+        if entity.Type == EntityType.ENTITY_FIREPLACE or
+            (entity.Type == EntityType.ENTITY_EFFECT and
+                (entity.Variant == EffectVariant.RED_CANDLE_FLAME or
+                    entity.Variant == EffectVariant.BLUE_FLAME)) then
             -- Spawn smoke effect at the flame's position
             Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.POOF01, 0, entity.Position, Vector(0, 0), nil)
             -- Play extinguish sound

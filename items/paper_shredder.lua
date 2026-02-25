@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local game = Game()
 
 -- Ensure the item is registered correctly
@@ -39,7 +39,7 @@ function mod:UsePaperShredder()
         removedCards[card] = true
 
         -- Remove the card from the player
-        player:SetCard(0, 0)  -- Set the card slot to 0 to remove the card
+        player:SetCard(0, 0) -- Set the card slot to 0 to remove the card
 
         -- Check if all cards have been removed
         allCardsRemoved = true
@@ -63,7 +63,7 @@ end
 function mod:ReplaceCardInstances(cardToReplace)
     local entities = Isaac.GetRoomEntities()
     local rng = RNG()
-    rng:SetSeed(Random(), 1)  -- Initialize RNG with a random seed
+    rng:SetSeed(Random(), 1) -- Initialize RNG with a random seed
 
     for _, entity in ipairs(entities) do
         if entity.Type == EntityType.ENTITY_PICKUP and entity.Variant == PickupVariant.PICKUP_TAROTCARD then
@@ -80,7 +80,7 @@ end
 -- Callback for when a card is spawned
 function mod:OnCardSpawn(pickup)
     local rng = RNG()
-    rng:SetSeed(Random(), 1)  -- Initialize RNG with a random seed
+    rng:SetSeed(Random(), 1) -- Initialize RNG with a random seed
 
     if pickup.Variant == PickupVariant.PICKUP_TAROTCARD and removedCards[pickup.SubType] then
         -- Replace with a random pill

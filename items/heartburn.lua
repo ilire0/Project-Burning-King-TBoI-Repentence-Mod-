@@ -1,4 +1,4 @@
-local HerzbrandMod = RegisterMod("Heartburn", 1)
+local HerzbrandMod = PBK
 local game = Game()
 local rng = RNG()
 local SFX = SFXManager()
@@ -22,10 +22,10 @@ function HerzbrandMod:UseHerzbrand(_, _, player)
             -- Verarbeite nur Herzen, die nicht im Shop sind
             if not isInShop then
                 if subtype == HeartSubType.HEART_FULL or
-                   subtype == HeartSubType.HEART_HALF or
-                   subtype == HeartSubType.HEART_DOUBLEPACK or
-                   subtype == HeartSubType.HEART_SCARED or
-                   subtype == HeartSubType.HEART_BLENDED then
+                    subtype == HeartSubType.HEART_HALF or
+                    subtype == HeartSubType.HEART_DOUBLEPACK or
+                    subtype == HeartSubType.HEART_SCARED or
+                    subtype == HeartSubType.HEART_BLENDED then
                     table.insert(redHearts, entity)
                 end
             end
@@ -39,7 +39,8 @@ function HerzbrandMod:UseHerzbrand(_, _, player)
         local entity = redHearts[1]
         local pos = entity.Position
         entity:Remove()
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BLACK, pos, Vector(0,0), nil)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BLACK, pos, Vector(0, 0),
+            nil)
         SFX:Play(SoundEffect.SOUND_LUCKYPICKUP, 1.0, 0, false, 1.0)
         return true
     end
@@ -59,7 +60,8 @@ function HerzbrandMod:UseHerzbrand(_, _, player)
         local entity = redHearts[i]
         local pos = entity.Position
         entity:Remove()
-        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BLACK, pos, Vector(0,0), nil)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, HeartSubType.HEART_BLACK, pos, Vector(0, 0),
+            nil)
         SFX:Play(SoundEffect.SOUND_LUCKYPICKUP, 1.0, 0, false, 1.0)
     end
 

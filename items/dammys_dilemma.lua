@@ -2,7 +2,7 @@
 local SafeDamocles = Isaac.GetItemIdByName("Dammy's Dilemma")
 
 -- Define a mod table
-local myMod = RegisterMod("Safe Damocles Mod", 1)
+local myMod = PBK
 
 -- Variables to track the timer, processed rooms, and trapdoor
 local teleportTimer = -1
@@ -39,7 +39,7 @@ local function TryDuplicateItem()
             local itemPool = Game():GetItemPool()
             local position = room:FindFreePickupSpawnPosition(Vector(320, 280), 0, true)
             local newItem = itemPool:GetCollectible(ItemPoolType.POOL_TREASURE, true, room:GetSpawnSeed())
-            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, position, Vector(0,0), nil)
+            Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, newItem, position, Vector(0, 0), nil)
 
             -- Play the item holding animation
             local player = Isaac.GetPlayer(0)
@@ -59,7 +59,7 @@ local function OnPlayerDamage(_, entity, damageAmount, damageFlag, damageSource)
         local roomType = room:GetType()
 
         -- Ignore damage from Curse Room doors and Sacrifice Room spikes
-        if not (damageFlag & DamageFlag.DAMAGE_CURSED_DOOR ~= 0 or 
+        if not (damageFlag & DamageFlag.DAMAGE_CURSED_DOOR ~= 0 or
                 (damageFlag & DamageFlag.DAMAGE_SPIKES ~= 0 and roomType == RoomType.ROOM_SACRIFICE)) then
             if player:HasCollectible(SafeDamocles) and teleportTimer == -1 then
                 StartTeleportTimer()
@@ -112,7 +112,7 @@ end
 -- Function to reset the effect on a new floor
 local function OnNewLevel()
     teleportTimer = -1
-    processedRooms = {}  -- Clear processed rooms for the new floor
+    processedRooms = {} -- Clear processed rooms for the new floor
     trapdoorPending = false
 end
 

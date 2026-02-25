@@ -1,4 +1,4 @@
-local mod = RegisterMod("MyMod", 1)
+local mod = PBK
 local redButton = Isaac.GetItemIdByName("The Button")
 
 function mod:RedButtonUse(item, rng, player, useFlags, activeSlot, customVarData)

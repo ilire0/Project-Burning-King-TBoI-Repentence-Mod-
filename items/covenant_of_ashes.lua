@@ -1,3 +1,4 @@
+local mod = PBK
 -- Define the item ID for Covenant of Ashes
 local CovenantOfAshes = Isaac.GetItemIdByName("Covenant of Ashes")
 
@@ -6,9 +7,9 @@ local function UseCovenantOfAshes(_, _, player)
     local player = Isaac.GetPlayer()
 
     if player.GetMaxHearts then
-        local redHearts = player:GetMaxHearts() / 2  -- Each heart container is 2 half-hearts
-        local damageBoost = 0.5  -- Damage boost per heart
-        local rangeBoost = 1.0   -- Range boost per heart
+        local redHearts = player:GetMaxHearts() / 2 -- Each heart container is 2 half-hearts
+        local damageBoost = 0.5                     -- Damage boost per heart
+        local rangeBoost = 1.0                      -- Range boost per heart
 
         if redHearts > 0 then
             -- Convert all red heart containers to black hearts
@@ -32,5 +33,5 @@ local function UseCovenantOfAshes(_, _, player)
 end
 
 -- Add a callback for when the item is used
-local mod = RegisterMod("Covenant of Ashes Mod", 1)
+
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, UseCovenantOfAshes, CovenantOfAshes)

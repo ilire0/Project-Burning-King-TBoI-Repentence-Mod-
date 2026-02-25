@@ -5,12 +5,12 @@ local MomsKey = Isaac.GetItemIdByName("Mom's Key")
 local TheCompass = Isaac.GetItemIdByName("The Compass")
 
 -- Define a mod table
-local myMod = RegisterMod("Rule of Power Mod", 1)
+local myMod = PBK
 
 -- Function to unlock and open specific doors
 local function UnlockAndOpenSpecificDoors()
     local player = Isaac.GetPlayer(0)
-    
+
     if player and player:HasCollectible(RuleOfPower) then
         local room = Game():GetRoom()
 
@@ -30,7 +30,7 @@ end
 -- Callback function to handle additional rewards
 local function OnChallengeRoomClear()
     local player = Isaac.GetPlayer(0)
-    
+
     if player and player:HasCollectible(RuleOfPower) then
         local room = Game():GetRoom()
         local roomType = room:GetType()
@@ -44,7 +44,7 @@ local function OnChallengeRoomClear()
 
             if math.random() < rewardChance then
                 local position = room:FindFreePickupSpawnPosition(player.Position, 0, true)
-                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, 0, position, Vector(0,0), nil)
+                Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, 0, position, Vector(0, 0), nil)
             end
         end
     end
